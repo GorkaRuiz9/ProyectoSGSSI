@@ -1,29 +1,13 @@
 <?php
-  echo '<h1>Yeah, it works!<h1>';
-  // phpinfo();
-  $hostname = "db";
-  $username = "admin";
-  $password = "test";
-  $db = "database";
+//Iniciamos la sesion de PHP 
+#header_remove('X-Powered-By');
 
-  $conn = mysqli_connect($hostname,$username,$password,$db);
-  if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
-  }
-
-
-
-$query = mysqli_query($conn, "SELECT * FROM usuarios")
-   or die (mysqli_error($conn));
-
-while ($row = mysqli_fetch_array($query)) {
-  echo
-   "<tr>
-    <td>{$row['id']}</td>
-    <td>{$row['nombre']}</td>
-   </tr>";
-   
-
-}
+session_start();
+//Ejecuta el archivo connection.php
+//include 'connection.php';      
+//Y lo mismo para la pagina principal
+include 'principal.html';
+//Cerramos la conexion con la base de datos
+$conn->close();
 
 ?>
