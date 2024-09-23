@@ -1,0 +1,72 @@
+:root {
+    --background-color: #121212; /* Color de fondo oscuro */
+    --text-color: #e0e0e0; /* Color del texto claro */
+    --text-darkColor: #303030; /* Color del texto oscuro */
+    --primary-color: #bb86fc; /* Color primario (botones y enlaces) */
+    --border-color: #b8b8b8; /* Color de bordes */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0; /* Eliminar márgenes por defecto del body */
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center; /* Centrar el título */
+}
+
+form {
+    max-width: 400px; /* Limitar el ancho del formulario */
+    margin: 0 auto; /* Centrar el formulario horizontalmente */
+    padding: 35px; /* Espaciado interno para el formulario */
+    background-color: #1e1e1e; /* Fondo del formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para el formulario */
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    width: calc(100% - 20px); /* Ajustar ancho para evitar desbordamiento */
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #1e1e1e; /* Fondo de los inputs */
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
+    color: #a0a0a0; /* Color del placeholder */
+}
+
+button {
+    display: block; /* Asegurarse de que el botón sea un bloque */
+    width: 100%; /* Hacer que el botón ocupe el ancho completo */
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 6px; /* Reducir el padding para hacer el botón más pequeño */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px; /* Reducir el tamaño de la fuente */
+    margin-top: 15px; /* Espacio superior para el botón */
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+button:hover {
+    background-color: #9a5ef5; /* Color al pasar el ratón sobre el botón */
+}
+

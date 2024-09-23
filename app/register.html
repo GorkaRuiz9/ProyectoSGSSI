@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuarios</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/validaciones.js"></script> <!-- Enlazar el archivo JS externo -->
+</head>
+<body>
+    <h1>Registro de Usuarios</h1>
+    <form id="register_form" action="register.php" method="POST" onsubmit="return validarFormulario();">
+        <label>Nombre: 
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan">
+        </label><br>
+
+        <label>Apellidos: 
+            <input type="text" id="apellidos" name="apellidos" required placeholder="Ej: Pérez">
+        </label><br>
+
+        <label>DNI: 
+            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-Z">
+        </label><br>
+
+        <label>Teléfono: 
+            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678">
+        </label><br>
+
+        <label>Fecha de Nacimiento: 
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+        </label><br>
+
+        <label>Email: 
+            <input type="email" id="email" name="email" required placeholder="Ej: ejemplo@dominio.com">
+        </label><br>
+
+        <button id="register_submit" type="submit">Registrarse</button>
+    </form>
+</body>
+</html>
+
