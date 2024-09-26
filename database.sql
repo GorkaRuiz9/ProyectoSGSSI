@@ -46,14 +46,37 @@ VALUES
 ('María', 'López Sánchez', '87654321-X', '689123456', '1985-10-30', 'maria.lopez@example.com');
 
 --
+-- Creación de la tabla `coche`
+--
+CREATE TABLE coche (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    marca VARCHAR(50) NOT NULL,
+    kilometros INT NOT NULL,
+    plazas INT NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `coche`
+--
+INSERT INTO coche (nombre, marca, kilometros, plazas, precio)
+VALUES
+('Model S', 'Tesla', 50000, 5, 79999.99),
+('Civic', 'Honda', 30000, 5, 22000.50),
+('Corolla', 'Toyota', 45000, 5, 18000.00),
+('Mustang', 'Ford', 15000, 4, 35000.75),
+('A4', 'Audi', 60000, 5, 29000.99);
+
+--
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `usuarios`
+-- Índices de la tabla `usuarios`
 --
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

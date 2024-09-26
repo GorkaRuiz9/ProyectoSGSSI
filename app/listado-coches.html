@@ -3,52 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Coches del Concesionario Manolín</title>
-    <link rel="stylesheet" href="css/style1.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    <title>Concesionario - Listado de Coches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles1.css">
+    <script src="js/listado.js" defer></script> <!-- Cambiado a listado.js -->
 </head>
 <body>
 
-    <h1>Listado de Coches del Concesionario Manolín</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Modelo</th>
-                <th>Marca</th>
-                <th>Año</th>
-                <th>Precio</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-        </tbody>
-    </table>
+    <header>
+        <div class="logo">Concesionario Manolín</div>
+        <nav>
+            <ul>
+                <li><a href="principal.html">Inicio</a></li>
+                <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                <li><a href="listado-coches.html">Listado de Coches</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <a href="register.html" class="register-btn">Registro</a>
+    </header>
+
+    <main>
+        <h1>Listado de Coches</h1>
+        <div class="listado-container">
+            <div class="dropdown-col">
+                <h2>Coches disponibles</h2>
+                <label for="coches">Selecciona un coche:</label>
+                <select name="coches" id="coches" onchange="mostrarCoche()">
+                    <!-- Las opciones serán cargadas dinámicamente desde el archivo PHP -->
+                </select>
+            </div>
+            <div class="form-col">
+                <h2>Añadir un coche</h2>
+                <form id="coche-form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                    
+                    <label for="marca">Marca:</label>
+                    <input type="text" id="marca" name="marca" required>
+                    
+                    <label for="kilometros">Kilómetros:</label>
+                    <input type="number" id="kilometros" name="kilometros" required>
+                    
+                    <label for="plazas">Plazas:</label>
+                    <input type="number" id="plazas" name="plazas" required>
+                    
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" name="precio" step="0.01" required>
+                    
+                    <button type="submit">Guardar Coche</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para cargar los coches desde el archivo PHP
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('listado-coches.php')
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("coches");
+
+                    // Crear las opciones del dropdown
+                    data.forEach(coche => {
+                        let option = document.createElement("option");
+                        option.value = coche.nombre;
+                        option.setAttribute("data-info", coche.marca + " " + coche.nombre);
+                        option.textContent = coche.nombre + " (" + coche.marca + ")";
+                        select.appendChild(option);
+                    });
+                });
+        });
+
+        // Función que se ejecuta cuando seleccionamos un coche
+        function mostrarCoche() {
+            var select = document.getElementById("coches");
+            var selectedOption = select.options[select.selectedIndex];
+            var cocheInfo = selectedOption.getAttribute("data-info");
+
+            // Mostrar la marca y nombre del coche en la columna vacía
+            document.getElementById("coche-seleccionado").innerHTML = cocheInfo;
+        }
+    </script>
 
 </body>
 </html>
+
