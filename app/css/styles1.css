@@ -105,7 +105,7 @@ footer p:hover {
 
 /* Columna del dropdown */
 .dropdown-col {
-    width: 45%;
+    width: 30%; /* Cambiado a 30% para que el formulario tenga más espacio */
     padding: 20px; /* Espaciado interno para mejor visualización */
     background-color: #2a2a2a; /* Fondo oscuro para la columna */
     border-radius: 10px; /* Bordes redondeados */
@@ -113,15 +113,16 @@ footer p:hover {
 
 /* Columna para el formulario */
 .form-col {
-    width: 45%;
+    width: 30%; /* Cambiado a 30% para que haya espacio a los lados */
     padding: 20px; /* Espaciado interno para mejor visualización */
     background-color: #2a2a2a; /* Fondo oscuro para la columna */
     border-radius: 10px; /* Bordes redondeados */
+    margin: 0 20px; /* Margen lateral de 20px para igualar con el dropdown */
 }
 
 /* Columna vacía */
 .empty-col {
-    width: 45%;
+    width: 30%; /* Cambiado a 30% para tener una distribución equilibrada */
     background-color: #f0f0f0; /* Color temporal para ver la columna vacía */
     border-radius: 10px;
     height: 300px; /* Altura fija temporal */
@@ -139,6 +140,12 @@ select {
 }
 
 /* Estilos del formulario */
+form {
+    background-color: #3c3c3c; /* Color grisáceo para el fondo del formulario */
+    padding: 20px; /* Espaciado interior */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
 input {
     width: 100%; /* Campos ocupan todo el ancho disponible */
     padding: 10px; /* Espacio interior */

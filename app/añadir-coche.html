@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concesionario - Añadir Coche</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles1.css">
+    <script src="js/listado2.js" defer></script> <!-- Cambiar a listado2.js si es necesario -->
+</head>
+<body>
+
+    <header>
+        <div class="logo">Concesionario Manolín</div>
+        <nav>
+            <ul>
+                <li><a href="principal.html">Inicio</a></li>
+                <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                <li><a href="listado-coches.html">Listado de Coches</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <a href="register.html" class="register-btn">Registro</a>
+    </header>
+
+    <main>
+        <h1>Añadir un Coche</h1>
+        <form id="coche-form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" required>
+
+            <label for="kilometros">Kilómetros:</label>
+            <input type="number" id="kilometros" name="kilometros" required>
+
+            <label for="plazas">Plazas:</label>
+            <input type="number" id="plazas" name="plazas" required>
+
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" step="0.01" required>
+
+            <button type="submit">Guardar Coche</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function validarFormulario(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const marca = document.getElementById("marca").value.trim();
+            const kilometros = parseInt(document.getElementById("kilometros").value);
+            const plazas = parseInt(document.getElementById("plazas").value);
+            const precio = parseFloat(document.getElementById("precio").value);
+
+            if (nombre === "" || marca === "") {
+                alert("Los campos Nombre y Marca no pueden estar vacíos.");
+                return;
+            }
+            if (kilometros < 0) {
+                alert("Los kilómetros no pueden ser negativos.");
+                return;
+            }
+            if (plazas <= 0) {
+                alert("El número de plazas debe ser mayor que cero.");
+                return;
+            }
+            if (precio <= 0) {
+                alert("El precio debe ser mayor que cero.");
+                return;
+            }
+
+            // Si todas las validaciones pasan, enviar el formulario
+            const form = document.getElementById("coche-form");
+            form.submit();
+        }
+    </script>
+
+</body>
+</html>
+

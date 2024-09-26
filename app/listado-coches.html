@@ -6,7 +6,7 @@
     <title>Concesionario - Listado de Coches</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado.js" defer></script> <!-- Cambiado a listado.js -->
+    <script src="js/listado2.js" defer></script> <!-- Cambiado a listado2.js -->
 </head>
 <body>
 
@@ -34,25 +34,11 @@
                 </select>
             </div>
             <div class="form-col">
-                <h2>Añadir un coche</h2>
-                <form id="coche-form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                    
-                    <label for="marca">Marca:</label>
-                    <input type="text" id="marca" name="marca" required>
-                    
-                    <label for="kilometros">Kilómetros:</label>
-                    <input type="number" id="kilometros" name="kilometros" required>
-                    
-                    <label for="plazas">Plazas:</label>
-                    <input type="number" id="plazas" name="plazas" required>
-                    
-                    <label for="precio">Precio:</label>
-                    <input type="number" id="precio" name="precio" step="0.01" required>
-                    
-                    <button type="submit">Guardar Coche</button>
-                </form>
+                <h2>Opciones</h2>
+                <button onclick="window.location.href='añadir-coche.html'">Añadir coche</button>
+                <button onclick="window.location.href='eliminar-coche.html'">Eliminar coche</button>
+                <button>Modificar coche</button>
+                <button>Visualizar características</button>
             </div>
         </div>
     </main>
@@ -68,8 +54,6 @@
                 .then(response => response.json())
                 .then(data => {
                     let select = document.getElementById("coches");
-
-                    // Crear las opciones del dropdown
                     data.forEach(coche => {
                         let option = document.createElement("option");
                         option.value = coche.nombre;
@@ -85,8 +69,6 @@
             var select = document.getElementById("coches");
             var selectedOption = select.options[select.selectedIndex];
             var cocheInfo = selectedOption.getAttribute("data-info");
-
-            // Mostrar la marca y nombre del coche en la columna vacía
             document.getElementById("coche-seleccionado").innerHTML = cocheInfo;
         }
     </script>

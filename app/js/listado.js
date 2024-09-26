@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Crear las opciones del dropdown
             data.forEach(coche => {
                 let option = document.createElement("option");
-                option.value = coche.nombre;
+                option.value = coche.id; // Cambiado para usar ID en el value
                 option.setAttribute("data-info", coche.marca + " " + coche.nombre);
                 option.textContent = coche.nombre + " (" + coche.marca + ")";
                 select.appendChild(option);
@@ -27,6 +27,30 @@ function mostrarCoche() {
 
     // Mostrar la marca y nombre del coche en la columna vacía
     document.getElementById("coche-seleccionado").innerHTML = cocheInfo;
+}
+
+// Función para eliminar un coche
+function eliminarCoche() {
+    var select = document.getElementById("coches");
+    var cocheId = select.value; // Obtener el ID del coche seleccionado
+
+    // Confirmación antes de eliminar
+    if (confirm("¿Estás seguro de que deseas eliminar este coche?")) {
+        fetch(`eliminar-coche.php?id=${cocheId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    location.reload(); // Recargar la página para actualizar la lista de coches
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Hubo un problema al eliminar el coche.");
+            });
+    }
 }
 
 // Función para validar y enviar el formulario
@@ -62,3 +86,4 @@ function validarFormulario(event) {
     const form = document.getElementById("coche-form");
     form.submit();
 }
+
