@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concesionario - Eliminar Coche</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles1.css">
+    <script src="js/listado2.js" defer></script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Concesionario Manolín</div>
+        <nav>
+            <ul>
+                <li><a href="principal.html">Inicio</a></li>
+                <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+                <li><a href="listado-coches.html">Listado de Coches</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <a href="register.html" class="register-btn">Registro</a>
+    </header>
+
+    <main>
+        <h1>Eliminar Coche</h1>
+        <div class="eliminar-container">
+            <h2>Coches disponibles</h2>
+            <label for="coches">Selecciona un coche:</label>
+            <select name="coches" id="coches">
+                <!-- Las opciones serán cargadas dinámicamente desde el archivo PHP -->
+            </select>
+            <button onclick="eliminarCoche()">Eliminar coche</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para cargar los coches desde el archivo PHP
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('listado-coches.php')
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("coches");
+                    data.forEach(coche => {
+                        let option = document.createElement("option");
+                        option.value = coche.nombre;
+                        option.textContent = coche.nombre + " (" + coche.marca + ")";
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar los coches:', error);
+                    alert('Error al cargar los coches.');
+                });
+        });
+
+        // Función para eliminar el coche seleccionado
+        function eliminarCoche() {
+            const select = document.getElementById("coches");
+            const cocheSeleccionado = select.value;
+
+            if (confirm(`¿Estás seguro de que deseas eliminar el coche: ${cocheSeleccionado}?`)) {
+                fetch('eliminar-coche.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nombre: cocheSeleccionado })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json(); // Asegúrate de parsear la respuesta JSON
+                    } else {
+                        throw new Error('Error en la respuesta del servidor');
+                    }
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert('Coche eliminado con éxito.');
+                        location.reload(); // Recargar la página para actualizar el dropdown
+                    } else {
+                        alert('Error al eliminar el coche: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar coche:', error);
+                    alert('Error al eliminar el coche.'); 
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
+

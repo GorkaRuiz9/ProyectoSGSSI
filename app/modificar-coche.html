@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Coche</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles1.css">
+    <script src="js/listado2.js" defer></script> <!-- Asegúrate de que este archivo esté correctamente referenciado -->
+</head>
+<body>
+
+<header>
+    <div class="logo">Concesionario Manolín</div>
+    <nav>
+        <ul>
+            <li><a href="principal.html">Inicio</a></li>
+            <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+            <li><a href="listado-coches.html">Listado de Coches</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    <a href="register.html" class="register-btn">Registro</a>
+</header>
+
+<main>
+    <h1>Modificar Coche</h1>
+    <div class="form-container">
+        <form id="modificar-form" action="actualizar-coche.php" method="POST" onsubmit="validarFormulario(event)">
+            <input type="hidden" id="id" name="id" value="">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" required>
+            <label for="kilometros">Kilómetros:</label>
+            <input type="number" id="kilometros" name="kilometros" required>
+            <label for="plazas">Plazas:</label>
+            <input type="number" id="plazas" name="plazas" required>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" step="0.01" required>
+            <button type="submit">Actualizar Coche</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Obtener el ID del coche de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const cocheId = urlParams.get('id');
+
+    // Cargar los datos del coche usando el ID
+    if (cocheId) {
+        fetch(`coche.php?id=${cocheId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('id').value = data.id;
+                    document.getElementById('nombre').value = data.nombre;
+                    document.getElementById('marca').value = data.marca;
+                    document.getElementById('kilometros').value = data.kilometros;
+                    document.getElementById('plazas').value = data.plazas;
+                    document.getElementById('precio').value = data.precio;
+                } else {
+                    alert("No se encontró el coche.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        alert("No se proporcionó un ID de coche.");
+    }
+
+    // Función para validar el formulario
+    function validarFormulario(event) {
+        event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const marca = document.getElementById("marca").value.trim();
+        const kilometros = parseInt(document.getElementById("kilometros").value);
+        const plazas = parseInt(document.getElementById("plazas").value);
+        const precio = parseFloat(document.getElementById("precio").value);
+
+        if (nombre === "" || marca === "") {
+            alert("Los campos Nombre y Marca no pueden estar vacíos.");
+            return;
+        }
+        if (kilometros < 0) {
+            alert("Los kilómetros no pueden ser negativos.");
+            return;
+        }
+        if (plazas <= 0) {
+            alert("El número de plazas debe ser mayor que cero.");
+            return;
+        }
+        if (precio <= 0) {
+            alert("El precio debe ser mayor que cero.");
+            return;
+        }
+
+        // Si todas las validaciones pasan, enviar el formulario
+        const form = document.getElementById("modificar-form");
+        form.submit();
+    }
+</script>
+
+</body>
+</html>
+

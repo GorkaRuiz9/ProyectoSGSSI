@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Características del Coche</title>
+    <link rel="stylesheet" href="css/styles1.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Concesionario Manolín</div>
+        <nav>
+            <ul>
+                <li><a href="principal.html">Inicio</a></li>
+                <li><a href="listado-coches.html">Listado de Coches</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Características del Coche</h1>
+        <div id="caracteristicas-container">
+            <table id="caracteristicas-table">
+                <tr><th>Campo</th><th>Valor</th></tr>
+                <!-- Aquí se insertarán dinámicamente las características -->
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener y mostrar las características del coche
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const cocheSeleccionado = urlParams.get('nombre_coche');
+            
+            fetch('obtener-caracteristicas.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'nombre_coche=' + encodeURIComponent(cocheSeleccionado)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.error) {
+                    let table = document.getElementById('caracteristicas-table');
+                    for (const [key, value] of Object.entries(data)) {
+                        let row = document.createElement('tr');
+                        row.innerHTML = `<td>${key}</td><td>${value}</td>`;
+                        table.appendChild(row);
+                    }
+                } else {
+                    alert(data.error);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+

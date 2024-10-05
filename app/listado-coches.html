@@ -6,7 +6,7 @@
     <title>Concesionario - Listado de Coches</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado2.js" defer></script> <!-- Cambiado a listado2.js -->
+    <script src="js/listado2.js" defer></script>
 </head>
 <body>
 
@@ -32,13 +32,14 @@
                 <select name="coches" id="coches" onchange="mostrarCoche()">
                     <!-- Las opciones serán cargadas dinámicamente desde el archivo PHP -->
                 </select>
+                <p id="coche-seleccionado"></p>
             </div>
             <div class="form-col">
                 <h2>Opciones</h2>
                 <button onclick="window.location.href='añadir-coche.html'">Añadir coche</button>
                 <button onclick="window.location.href='eliminar-coche.html'">Eliminar coche</button>
-                <button>Modificar coche</button>
-                <button>Visualizar características</button>
+                <button onclick="modificarCoche()">Modificar coche</button>
+                <button onclick="visualizarCaracteristicas()">Visualizar características</button>
             </div>
         </div>
     </main>
@@ -57,6 +58,7 @@
                     data.forEach(coche => {
                         let option = document.createElement("option");
                         option.value = coche.nombre;
+                        option.setAttribute("data-id", coche.id); // Agregar el ID del coche
                         option.setAttribute("data-info", coche.marca + " " + coche.nombre);
                         option.textContent = coche.nombre + " (" + coche.marca + ")";
                         select.appendChild(option);
@@ -70,6 +72,24 @@
             var selectedOption = select.options[select.selectedIndex];
             var cocheInfo = selectedOption.getAttribute("data-info");
             document.getElementById("coche-seleccionado").innerHTML = cocheInfo;
+        }
+
+        // Función para redirigir a la página de modificación del coche seleccionado
+        function modificarCoche() {
+            const select = document.getElementById("coches");
+            const cocheId = select.options[select.selectedIndex].getAttribute("data-id");
+            if (!cocheId) {
+                alert("Por favor, selecciona un coche para modificar.");
+                return;
+            }
+            window.location.href = `modificar-coche.html?id=${encodeURIComponent(cocheId)}`;
+        }
+
+        // Función para redirigir a la página de características del coche seleccionado
+        function visualizarCaracteristicas() {
+            const select = document.getElementById("coches");
+            const cocheSeleccionado = select.options[select.selectedIndex].value;
+            window.location.href = `visualizar-caracteristicas.html?nombre_coche=${encodeURIComponent(cocheSeleccionado)}`;
         }
     </script>
 

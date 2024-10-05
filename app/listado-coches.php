@@ -1,30 +1,35 @@
 <?php
-// Conexión a la base de datos (nombre del servicio en Docker: db)
-$conn = new mysqli("db", "admin", "test", "database"); // Cambiar credenciales si es necesario
+// Conexión a la base de datos
+$servidor = "db";
+$usuario = "admin";
+$contraseña = "test";
+$base_datos = "database";
+
+$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
+
+// Verifica si hay errores en la conexión
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("Error de conexión: " . $conn->connect_error);
 }
 
-// Consulta para obtener los coches
-$sql = "SELECT nombre, marca FROM coche";
+// Consulta para obtener todos los coches
+$sql = "SELECT * FROM coche";
 $result = $conn->query($sql);
 
+// Array para almacenar los coches
 $coches = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $coches[] = [
-            'nombre' => $row['nombre'],
-            'marca' => $row['marca']
-        ];
+        $coches[] = $row;
     }
 }
 
-// Devolver los datos como JSON
+// Devuelve los coches en formato JSON
 header('Content-Type: application/json');
 echo json_encode($coches);
 
-// Cerrar conexión
+// Cierra la conexión
 $conn->close();
 ?>
 
