@@ -202,4 +202,21 @@ td:hover {
     background-color: transparent; /* No cambiar color al pasar el mouse */
     cursor: default; /* Cambia el cursor a default */
 }
+.auth-buttons {
+    float: right; /* Alinea los botones a la derecha */
+}
+
+.auth-btn {
+    background-color: #6c63ff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: bold; /* Negrita */
+    margin-left: 10px; /* Espaciado entre botones */
+}
+
+.auth-btn:hover {
+    background-color: #5851db; /* Color al pasar el ratón por encima */
+}
 

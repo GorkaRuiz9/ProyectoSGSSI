@@ -70,7 +70,15 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
-        <a href="register.html" class="register-btn">Registro</a>
+
+        <div class="auth-buttons">
+            <?php if (isset($_SESSION['username'])): ?>
+                <a href="perfil.php" class="auth-btn">Perfil</a>
+            <?php else: ?>
+                <a href="login.html" class="auth-btn">Iniciar Sesión</a>
+                <a href="register.html" class="auth-btn">Registro</a>
+            <?php endif; ?>
+        </div>
     </header>
 
     <main style="text-align: center;">
