@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefono = $_POST['telefono'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $email = $_POST['email'];
+    $contraseña = $_POST['contraseña'];
     
     $hostname = "db";
     $username = "admin";
@@ -21,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Preparar la consulta SQL para insertar los datos
-    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email);
+    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $contraseña);
 
     // Ejecutar la consulta
     if ($stmt->execute()) {

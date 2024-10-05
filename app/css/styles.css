@@ -2,7 +2,7 @@
     --background-color: #121212; /* Color de fondo oscuro */
     --text-color: #e0e0e0; /* Color del texto claro */
     --text-darkColor: #303030; /* Color del texto oscuro */
-    --primary-color: #bb86fc; /* Color primario (botones y enlaces) */
+    --primary-color: #6c63ff; /* Color primario (botones y enlaces)#bb86fc */
     --border-color: #b8b8b8; /* Color de bordes */
 }
 
@@ -54,7 +54,7 @@ input[type="email"]::placeholder {
 button {
     display: block; /* Asegurarse de que el botón sea un bloque */
     width: 100%; /* Hacer que el botón ocupe el ancho completo */
-    background-color: var(--primary-color);
+    background-color: #6c63ff;
     color: var(--text-color);
     padding: 6px; /* Reducir el padding para hacer el botón más pequeño */
     border: none;
@@ -67,6 +67,6 @@ button {
 }
 
 button:hover {
-    background-color: #9a5ef5; /* Color al pasar el ratón sobre el botón */
+    background-color: #5851db; /* Color al pasar el ratón sobre el botón */
 }
 
