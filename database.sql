@@ -33,17 +33,18 @@ CREATE TABLE usuarios (
     dni VARCHAR(10) UNIQUE NOT NULL,
     telefono VARCHAR(9) NOT NULL,
     fecha_nacimiento DATE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL
+    email VARCHAR(100) UNIQUE NOT NULL,
+    contraseña VARCHAR(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email)
+INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email,contraseña)
 VALUES 
-('Juan', 'Pérez García', '12345678-Z', '612345678', '1990-05-15', 'juan.perez@example.com'),
-('María', 'López Sánchez', '87654321-X', '689123456', '1985-10-30', 'maria.lopez@example.com');
+('Juan', 'Pérez García', '12345678-Z', '612345678', '1990-05-15', 'juan.perez@example.com', '12345678'),
+('María', 'López Sánchez', '87654321-X', '689123456', '1985-10-30', 'maria.lopez@example.com', '87654321');
 
 --
 -- Creación de la tabla `coche`
