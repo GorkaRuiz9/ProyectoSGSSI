@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Usuario encontrado, inicia sesión
         $_SESSION['loggedin'] = true; // Marca al usuario como logueado
         $_SESSION['username'] = $user; // Guarda el nombre de usuario en la sesión
-        header("Location: principal.php"); // Redirige a la página principal
+        header("Location: index.php"); // Redirige a la página principal
         exit();
     } else {
         // Credenciales incorrectas

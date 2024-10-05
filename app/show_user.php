@@ -51,7 +51,7 @@ $conn->close();
     <div class="logo">Concesionario Manolín</div>
     <nav>
         <ul>
-            <li><a href="principal.php">Inicio</a></li>
+            <li><a href="index.php">Inicio</a></li>
             <li><a href="quienes-somos.html">Quiénes Somos</a></li>
             <li><a href="listado-coches.html">Listado de Coches</a></li>
             <li><a href="contacto.html">Contacto</a></li>
