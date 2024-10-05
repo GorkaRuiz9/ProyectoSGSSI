@@ -22,7 +22,7 @@ session_start();
         <ul>
             <li><a href="index.php">Inicio</a></li>
             <li><a href="quienes-somos.php">Quiénes Somos</a></li>
-            <li><a href="listado-coches1.php">Listado de Coches</a></li>
+            <li><a href="items.php">Listado de Coches</a></li>
             <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
