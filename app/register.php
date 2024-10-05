@@ -22,8 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Preparar la consulta SQL para insertar los datos
-    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $contraseña);
+    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $contraseña);
+
 
     // Ejecutar la consulta
     if ($stmt->execute()) {
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $mysqli->close();
     
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='principal.php';</script>";
     exit();
 
 }

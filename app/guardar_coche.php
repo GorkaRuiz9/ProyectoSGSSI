@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($conn->query($sql_insert) === TRUE) {
         // Redirigir a la página de listado de coches después de añadir
-        header("Location: listado-coches.html"); // Cambiar a la URL correcta
+        header("Location: items.php"); // Cambiar a la URL correcta
         exit(); // Asegúrate de salir después de la redirección
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Error al añadir el coche: ' . $conn->error]);

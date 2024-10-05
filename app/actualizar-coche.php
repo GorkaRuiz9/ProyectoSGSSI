@@ -29,7 +29,7 @@ $stmt->bind_param("ssiiid", $nombre, $marca, $kilometros, $plazas, $precio, $id)
 
 if ($stmt->execute()) {
     // Redirige a listado-coches.html
-    header("Location: listado-coches.html");
+    header("Location: items.php");
     exit(); // Asegúrate de detener el script después de redirigir
 } else {
     echo "Error al modificar el coche: " . $stmt->error;
