@@ -79,7 +79,7 @@ session_start();
 
     <div class="auth-buttons">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-            <a href="perfil.php" id="profile-btn" class="auth-btn">Perfil</a>
+            <a href="show_user.php" id="profile-btn" class="auth-btn">Perfil</a>
             <a href="logout.php" class="auth-btn">Cerrar Sesión</a>
         <?php else: ?>
             <a href="login.html" id="login-btn" class="auth-btn">Iniciar Sesión</a>

@@ -1,5 +1,5 @@
 <?php
-// Conexión a la base de datos
+
 $servidor = "db";
 $usuario = "admin";
 $contraseña = "test";
@@ -7,7 +7,7 @@ $base_datos = "database";
 
 $conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
 
-// Verifica si hay errores en la conexión
+
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
