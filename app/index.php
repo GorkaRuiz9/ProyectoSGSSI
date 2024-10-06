@@ -56,7 +56,7 @@ session_start(); // Iniciar sesión
 #header_remove('X-Powered-By');
 
 // Incluimos el contenido de principal.html
-include 'principal.html';
+
 ?>
 
 </body>
