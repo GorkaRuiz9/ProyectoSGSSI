@@ -114,7 +114,7 @@ session_start(); // Iniciar sesión
         <h2>Síguenos en nuestras redes sociales</h2>
         <p><a href="https://instagram.com/ConcesionarioManolin" target="_blank">Instagram</a></p>
         <p><a href="https://facebook.com/ConcesionarioManolinBilbao" target="_blank">Facebook</a></p>
-        <p><a href="https://twitter.com/ManolinCochesBilbao" target="_blank">Twitter</a></p>
+        <p><a href="https://twitter.com/ManolinCoches" target="_blank">Twitter</a></p>
     </div>
 
     <!-- Imagen del concesionario con tamaño estandarizado -->
