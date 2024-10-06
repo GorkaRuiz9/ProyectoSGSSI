@@ -7,7 +7,7 @@ Linux + Apache + MariaDB (MySQL) + PHP 7.2 on Docker Compose. Mod_rewrite enable
 Clone the repository in your preferred folder.
 
 ```bash
-$ cd SGSSI-Proyecto/
+$ cd ProyectoSGSSI/
 ```
 
 ```bash
