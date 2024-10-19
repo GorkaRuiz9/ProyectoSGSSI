@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
     $mysqli->close();
     
-    echo "<script>window.location.href='principal.php';</script>";
+    echo "<script>window.location.href='index.php';</script>";
     exit();
 
 }
