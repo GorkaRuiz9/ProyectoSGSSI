@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($update_sql) === TRUE) {
         //echo "Datos actualizados correctamente.";
         $_SESSION['username'] = $nombre; // Actualizar el nombre de usuario en la sesión si se cambió
-        header("Location: principal.php");
+        header("Location: index.php");
     } else {
         echo "Error al actualizar los datos: " . $conn->error;
     }
