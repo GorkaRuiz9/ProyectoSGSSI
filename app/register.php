@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de informacion en variables si ha recibido un POST
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $dni = $_POST['dni'];
@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
     
+    // Variables
     $hostname = "db";
     $username = "admin";
     $password = "test";

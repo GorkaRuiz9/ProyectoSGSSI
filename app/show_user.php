@@ -7,13 +7,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Conexión a la base de datos
+// Varaibles
 $servername = "db";
 $usernameDB = "admin";
 $passwordDB = "test";
 $dbname = "database";
 
-$conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
+$conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname); // Conexión a la base de datos
 
 // Verificar la conexión
 if ($conn->connect_error) {
@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-$conn->close();
+$conn->close(); // Cerrar la conexion
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +51,7 @@ $conn->close();
     <div class="logo">Concesionario Manolín</div>
     <nav>
         <ul>
+            <!-- Menú de navegación con enlaces a otras páginas del sitio -->
             <li><a href="index.php">Inicio</a></li>
             <li><a href="quienes-somos.php">Quiénes Somos</a></li>
             <li><a href="items.php">Listado de Coches</a></li>
@@ -94,7 +95,7 @@ $conn->close();
     </table>
     
     <br>
-    <a href="modify_user.php"><button>Modificar Datos</button></a>
+    <a href="modify_user.php"><button>Modificar Datos</button></a> // Boton para modificacion de datos del usuario
 </main>
 
 <footer>

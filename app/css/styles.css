@@ -52,7 +52,7 @@ input[type="email"]::placeholder {
 }
 
 button {
-    display: block; /* Asegurarse de que el botón sea un bloque */
+    display: block; /* El botón sea un bloque */
     width: 100%; /* Hacer que el botón ocupe el ancho completo */
     background-color: #6c63ff;
     color: var(--text-color);

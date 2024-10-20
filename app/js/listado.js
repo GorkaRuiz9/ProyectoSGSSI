@@ -65,19 +65,19 @@ function validarFormulario(event) {
     const precio = parseFloat(document.getElementById("precio").value);
 
     // Validaciones
-    if (nombre === "" || marca === "") {
+    if (nombre === "" || marca === "") { // Validacion campos no vacios
         alert("Los campos Nombre y Marca no pueden estar vacíos.");
         return;
     }
-    if (kilometros < 0) {
+    if (kilometros < 0) { // Validacion km no negativos
         alert("Los kilómetros no pueden ser negativos.");
         return;
     }
-    if (plazas <= 0) {
+    if (plazas <= 0) { // Validacion nº plazas no 0 o inferior
         alert("El número de plazas debe ser mayor que cero.");
         return;
     }
-    if (precio <= 0) {
+    if (precio <= 0) { // Validacion precio mayor que cero
         alert("El precio debe ser mayor que cero.");
         return;
     }

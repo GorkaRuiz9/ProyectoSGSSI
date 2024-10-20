@@ -4,41 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuarios</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Enlazar el archivo CSS externo para los estilos del formulario -->
     <script src="js/validaciones.js"></script> <!-- Enlazar el archivo JS externo -->
 </head>
 <body>
     <h1>Registro de Usuarios</h1>
-    <form id="register_form" action="register.php" method="POST" onsubmit="return validarFormulario();">
+    <form id="register_form" action="register.php" method="POST" onsubmit="return validarFormulario();"> <!-- Formulario para el registro de usuarios, con validación en el evento "onsubmit" -->
         <label>Nombre: 
-            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan">
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan"> <!-- Campo para ingresar el nombre -->
         </label><br>
 
         <label>Apellidos: 
-            <input type="text" id="apellidos" name="apellidos" required placeholder="Ej: Pérez">
+            <input type="text" id="apellidos" name="apellidos" required placeholder="Ej: Pérez"> <!-- Campo para ingresar los apellidos -->
         </label><br>
 
         <label>DNI: 
-            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-Z">
+            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-Z"> <!-- Campo para ingresar el DNI -->
         </label><br>
 
         <label>Teléfono: 
-            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678">
+            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678"> <!-- Campo para ingresar el numero de telefono -->
         </label><br>
 
         <label>Fecha de Nacimiento: 
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required> <!-- Campo para ingresar la fecha de nacimiento -->
         </label><br>
 
         <label>Email: 
-            <input type="email" id="email" name="email" required placeholder="Ej: ejemplo@dominio.com">
+            <input type="email" id="email" name="email" required placeholder="Ej: ejemplo@dominio.com"> <!-- Campo para ingresar el email -->
         </label><br>
         
         <label>Contraseña: 
-            <input type="text" id="contraseña" name="contraseña" required placeholder="">
+            <input type="text" id="contraseña" name="contraseña" required placeholder=""> <!-- Campo para ingresar la contraseña -->
         </label><br>
 
-        <button id="register_submit" type="submit">Registrarse</button>
+        <button id="register_submit" type="submit">Registrarse</button> <!-- Botón para enviar el formulario -->
     </form>
 </body>
 </html>

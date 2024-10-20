@@ -9,13 +9,14 @@
 <body>
 
     <header>
-        <div class="logo">Concesionario Manolín</div>
+        <div class="logo">Concesionario Manolín</div> <!-- Logotipo del concesionario -->
         <nav>
             <ul>
+                <!-- Menú de navegación con enlaces a otras páginas del sitio -->
                 <li><a href="index.php">Inicio</a></li>
-            <li><a href="quienes-somos.php">Quiénes Somos</a></li>
-            <li><a href="items.php">Listado de Coches</a></li>
-            <li><a href="contacto.php">Contacto</a></li>
+                <li><a href="quienes-somos.php">Quiénes Somos</a></li>
+                <li><a href="items.php">Listado de Coches</a></li>
+                <li><a href="contacto.php">Contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -31,31 +32,32 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
+        <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p> 
     </footer>
 
     <script>
         // Función para obtener y mostrar las características del coche
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() { // Función que se ejecuta cuando el DOM está completamente cargado
+            // Obtener los parámetros de la URL (en este caso, el nombre del coche)
             const urlParams = new URLSearchParams(window.location.search);
             const cocheSeleccionado = urlParams.get('nombre_coche');
             
-            fetch('obtener-caracteristicas.php', {
+            fetch('obtener-caracteristicas.php', { // Realizar una solicitud POST a 'obtener-caracteristicas.php' para obtener las características del coche
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'nombre_coche=' + encodeURIComponent(cocheSeleccionado)
             })
             .then(response => response.json())
             .then(data => {
-                if (!data.error) {
-                    let table = document.getElementById('caracteristicas-table');
-                    for (const [key, value] of Object.entries(data)) {
-                        let row = document.createElement('tr');
-                        row.innerHTML = `<td>${key}</td><td>${value}</td>`;
-                        table.appendChild(row);
+                if (!data.error) { // Si no hay error en los datos recibidos
+                    let table = document.getElementById('caracteristicas-table'); // Obtener la tabla donde se mostrarán las características         
+                    for (const [key, value] of Object.entries(data)) { // Iterar sobre las entradas (key, value) de los datos y crear una fila para cada característica
+                        let row = document.createElement('tr'); // Crear una nueva fila de tabla
+                        row.innerHTML = `<td>${key}</td><td>${value}</td>`; // Rellenar la fila con los datos de la característica
+                        table.appendChild(row); // Añadir la fila a la tabla
                     }
                 } else {
-                    alert(data.error);
+                    alert(data.error); // Si hay un error, mostrarlo en una alerta
                 }
             });
         });
