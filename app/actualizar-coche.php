@@ -9,12 +9,12 @@ $base_datos = "database";
 
 $conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
 
-
+// Verifica errores de conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-
+// Obtiene datos del formulario
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
 $marca = $_POST['marca'];
@@ -28,15 +28,13 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssiiid", $nombre, $marca, $kilometros, $plazas, $precio, $id);
 
 if ($stmt->execute()) {
-    
-    header("Location: items.php");
+    header("Location: items.php"); // Redirige si la actualización es exitosa
     exit(); 
 } else {
-    echo "Error al modificar el coche: " . $stmt->error;
+    echo "Error al modificar el coche: " . $stmt->error; // Muestra error si falla
 }
 
-$stmt->close();
-$conn->close();
-ob_end_flush(); 
+$stmt->close(); // Cierra el statement
+$conn->close(); // Cierra la conexión
+ob_end_flush(); // Envía el contenido del buffer
 ?>
-

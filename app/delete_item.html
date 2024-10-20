@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concesionario - Eliminar Coche</title>
+
+    <!-- Fuente personalizada de Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Enlace a la hoja de estilos personalizada -->
     <link rel="stylesheet" href="css/styles1.css">
+    
+    <!-- Script adicional que podría manejar la lógica de listado -->
     <script src="js/listado2.js" defer></script>
 </head>
 <body>
@@ -14,13 +20,13 @@
         <div class="logo">Concesionario Manolín</div>
         <nav>
             <ul>
+                <!-- Enlaces de navegación a las diferentes secciones del sitio -->
                 <li><a href="index.php">Inicio</a></li>
-            <li><a href="quienes-somos.php">Quiénes Somos</a></li>
-            <li><a href="items.php">Listado de Coches</a></li>
-            <li><a href="contacto.php">Contacto</a></li>
+                <li><a href="quienes-somos.php">Quiénes Somos</a></li>
+                <li><a href="items.php">Listado de Coches</a></li>
+                <li><a href="contacto.php">Contacto</a></li>
             </ul>
         </nav>
-        
     </header>
 
     <main>
@@ -29,8 +35,9 @@
             <h2>Coches disponibles</h2>
             <label for="coches">Selecciona un coche:</label>
             <select name="coches" id="coches">
-                <!-- Las opciones serán cargadas dinámicamente desde el archivo PHP -->
+                <!-- Las opciones del select se cargarán dinámicamente desde el archivo PHP -->
             </select>
+            <!-- Botón para eliminar el coche seleccionado -->
             <button onclick="eliminarCoche()" name="item_delete_submit">Eliminar coche</button>
         </div>
     </main>
@@ -40,22 +47,23 @@
     </footer>
 
     <script>
-        // Función para cargar los coches desde el archivo PHP
+        // Función para cargar los coches disponibles desde el archivo PHP
         document.addEventListener("DOMContentLoaded", function() {
             fetch('listado-coches.php')
                 .then(response => response.json())
                 .then(data => {
                     let select = document.getElementById("coches");
+                    // Agregar cada coche como opción en el select
                     data.forEach(coche => {
                         let option = document.createElement("option");
-                        option.value = coche.nombre;
-                        option.textContent = coche.nombre + " (" + coche.marca + ")";
+                        option.value = coche.nombre; // Valor de la opción (nombre del coche)
+                        option.textContent = coche.nombre + " (" + coche.marca + ")"; // Texto mostrado
                         select.appendChild(option);
                     });
                 })
                 .catch(error => {
                     console.error('Error al cargar los coches:', error);
-                    alert('Error al cargar los coches.');
+                    alert('Error al cargar los coches.'); // Mensaje de error al cargar los coches
                 });
         });
 
@@ -64,32 +72,33 @@
             const select = document.getElementById("coches");
             const cocheSeleccionado = select.value;
 
+            // Confirmar antes de eliminar el coche
             if (confirm(`¿Estás seguro de que deseas eliminar el coche: ${cocheSeleccionado}?`)) {
                 fetch('eliminar-coche.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ nombre: cocheSeleccionado })
+                    body: JSON.stringify({ nombre: cocheSeleccionado }) // Enviar el nombre del coche en el cuerpo de la solicitud
                 })
                 .then(response => {
                     if (response.ok) {
-                        return response.json(); // Asegúrate de parsear la respuesta JSON
+                        return response.json(); // Convertir la respuesta a JSON
                     } else {
-                        throw new Error('Error en la respuesta del servidor');
+                        throw new Error('Error en la respuesta del servidor'); // Manejo de errores
                     }
                 })
                 .then(data => {
                     if (data.success) {
-                        alert('Coche eliminado con éxito.');
+                        alert('Coche eliminado con éxito.'); // Mensaje de éxito
                         location.reload(); // Recargar la página para actualizar el dropdown
                     } else {
-                        alert('Error al eliminar el coche: ' + data.message);
+                        alert('Error al eliminar el coche: ' + data.message); // Mensaje de error
                     }
                 })
                 .catch(error => {
                     console.error('Error al eliminar coche:', error);
-                    alert('Error al eliminar el coche.'); 
+                    alert('Error al eliminar el coche.'); // Mensaje de error en caso de falla
                 });
             }
         }
@@ -97,4 +106,3 @@
 
 </body>
 </html>
-

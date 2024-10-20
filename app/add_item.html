@@ -6,7 +6,7 @@
     <title>Concesionario - Añadir Coche</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado2.js" defer></script> <!-- Cambiar a listado2.js si es necesario -->
+    <script src="js/listado2.js" defer></script> <!-- Incluye el script listado2.js para funciones adicionales -->
 </head>
 <body>
 
@@ -15,33 +15,32 @@
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
-            <li><a href="quienes-somos.php">Quiénes Somos</a></li>
-            <li><a href="items.php">Listado de Coches</a></li>
-            <li><a href="contacto.php">Contacto</a></li>
+                <li><a href="quienes-somos.php">Quiénes Somos</a></li>
+                <li><a href="items.php">Listado de Coches</a></li>
+                <li><a href="contacto.php">Contacto</a></li>
             </ul>
         </nav>
-        
     </header>
 
     <main>
         <h1>Añadir un Coche</h1>
-        <form id="item_add_form" name="item_add_form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)" >
+        <form id="item_add_form" name="item_add_form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <input type="text" id="nombre" name="nombre" required> <!-- Campo para el nombre del coche -->
 
             <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca" required>
+            <input type="text" id="marca" name="marca" required> <!-- Campo para la marca del coche -->
 
             <label for="kilometros">Kilómetros:</label>
-            <input type="number" id="kilometros" name="kilometros" required>
+            <input type="number" id="kilometros" name="kilometros" required> <!-- Campo para los kilómetros -->
 
             <label for="plazas">Plazas:</label>
-            <input type="number" id="plazas" name="plazas" required>
+            <input type="number" id="plazas" name="plazas" required> <!-- Campo para el número de plazas -->
 
             <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" step="0.01" required>
+            <input type="number" id="precio" name="precio" step="0.01" required> <!-- Campo para el precio del coche -->
 
-            <button type="submit" name="item_add_submit">Guardar Coche</button>
+            <button type="submit" name="item_add_submit">Guardar Coche</button> <!-- Botón para enviar el formulario -->
         </form>
     </main>
 
@@ -50,18 +49,21 @@
     </footer>
 
     <script>
+        // Función para validar los datos del formulario antes de enviarlo
         function validarFormulario(event) {
             event.preventDefault(); // Evitar que se envíe el formulario automáticamente
 
+            // Obtener los valores de los campos
             const nombre = document.getElementById("nombre").value.trim();
             const marca = document.getElementById("marca").value.trim();
             const kilometros = parseInt(document.getElementById("kilometros").value);
             const plazas = parseInt(document.getElementById("plazas").value);
             const precio = parseFloat(document.getElementById("precio").value);
 
+            // Validaciones de los campos
             if (nombre === "" || marca === "") {
                 alert("Los campos Nombre y Marca no pueden estar vacíos.");
-                return;
+                return; // Salir de la función si hay error
             }
             if (kilometros < 0) {
                 alert("Los kilómetros no pueden ser negativos.");
@@ -78,10 +80,9 @@
 
             // Si todas las validaciones pasan, enviar el formulario
             const form = document.getElementById("item_add_form");
-            form.submit();
+            form.submit(); // Envía el formulario
         }
     </script>
 
 </body>
 </html>
-
