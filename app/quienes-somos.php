@@ -9,9 +9,9 @@ session_start(); // Iniciar sesión
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiénes Somos - Concesionario Manolín</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles1.css">
+    <link rel="stylesheet" href="css/styles1.css"> //Elegimos el estilo styles1.css para la página
     <style>
-        /* Estilo para el body */
+        // Estilo para  el cuerpo
         body {
             margin: 0; /* Elimina el margen predeterminado */
             background-color: #1a1a1a; /* Color de fondo de la página */
@@ -19,7 +19,7 @@ session_start(); // Iniciar sesión
             font-family: 'Roboto', sans-serif; /* Fuente de la página */
         }
 
-        /* Estilo para el footer */
+        // Estilo para el footer 
         footer {
             text-align: center; /* Centra el texto del pie de página */
             background-color: #333; /* Color de fondo para el footer */
@@ -27,22 +27,22 @@ session_start(); // Iniciar sesión
             color: #ffffff; /* Color del texto del footer */
         }
 
-        /* Estilo para el main */
+        // Estilo para el main 
         main {
             padding: 20px; /* Espaciado interno para el contenido */
             max-width: 800px; /* Ancho máximo para que no se extienda demasiado */
             margin: 0 auto; /* Centra el contenido */
         }
 
-        /* Estilo para el contenedor de valores */
+        // Estilo para el contenedor de valores
         .valores-container {
-            display: flex; /* Usar flexbox para centrar el contenido */
+            display: flex; /*Centrar el contenido */
             justify-content: center; /* Centrar horizontalmente */
-            align-items: center; /* Centrar verticalmente (si es necesario) */
+            align-items: center; /* Centrar verticalmente */
             margin-top: 20px; /* Espacio superior */
         }
 
-        /* Estilo para la sección de valores */
+        // Estilo para la sección de valores 
         .valores-list {
             text-align: left; /* Alinear el texto a la izquierda */
             margin-left: 50px; /* Sangrado uniforme a la izquierda */
@@ -54,7 +54,7 @@ session_start(); // Iniciar sesión
             margin-bottom: 10px; /* Espacio entre cada elemento de la lista */
         }
 
-        /* Estilo para la imagen del concesionario */
+        // Estilo para la imagen del concesionario 
         .concesionario-image {
             max-width: 300px; /* Ajusta el ancho máximo deseado */
             height: auto; /* Mantiene la proporción de la imagen */
@@ -64,7 +64,7 @@ session_start(); // Iniciar sesión
     </style>
 </head>
 <body>
-
+//Encabezado. Vinculamos los ficheros con sus respectivas páginas
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -75,7 +75,7 @@ session_start(); // Iniciar sesión
             <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
-
+//Botones de Registro e Inicio de sesión
     <div class="auth-buttons">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
             <a href="show_user.php" id="profile-btn" class="auth-btn">Perfil</a>
@@ -86,7 +86,7 @@ session_start(); // Iniciar sesión
         <?php endif; ?>
     </div>
 </header>
-
+//Cuerpo de la página. Escribimos los mensajes que queremos que se lean.
 <main>
     <h1>Quiénes Somos</h1>
     <p>En el <strong>Concesionario Manolín</strong>, llevamos más de 15 años en Bilbao ofreciendo vehículos de alta gama. Nos apasiona ayudar a nuestros clientes a encontrar el coche perfecto que se adapte a sus necesidades y estilo de vida. Nuestra amplia experiencia en el sector nos permite ofrecer un servicio excepcional, siempre con una atención personalizada.</p>
@@ -109,7 +109,7 @@ session_start(); // Iniciar sesión
 
     <h2>¿Por Qué Elegirnos?</h2>
     <p>En el <strong>Concesionario Manolín</strong>, no solo vendemos coches, sino que creamos relaciones. Nuestro equipo de expertos está siempre listo para asesorarte y acompañarte en cada paso del proceso de compra. Nos enorgullece ser parte de tu viaje hacia la adquisición del coche de tus sueños. Además, ofrecemos un servicio post-venta para asegurar que tu experiencia con nosotros sea siempre positiva.</p>
-
+//URLs de redes sociales
     <div style="margin-top: 30px;">
         <h2>Síguenos en nuestras redes sociales</h2>
         <p><a href="https://instagram.com/ConcesionarioManolin" target="_blank">Instagram</a></p>
@@ -117,11 +117,11 @@ session_start(); // Iniciar sesión
         <p><a href="https://twitter.com/ManolinCoches" target="_blank">Twitter</a></p>
     </div>
 
-    <!-- Imagen del concesionario con tamaño estandarizado -->
+    // Imagen del concesionario 
     <img src="concesionario.jpg" alt="Imagen del concesionario" class="concesionario-image">
 
 </main>
-
+//Pie de página
 <footer>
     <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
 </footer>

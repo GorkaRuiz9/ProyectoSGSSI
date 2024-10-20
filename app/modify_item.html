@@ -6,10 +6,11 @@
     <title>Modificar Coche</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado2.js" defer></script> <!-- Asegúrate de que este archivo esté correctamente referenciado -->
+    <script src="js/listado2.js" defer></script> <!-- Referenciamos a los js que hemos hecho para el diseño-->
 </head>
 <body>
 
+<!--Vincula cada fichero a la página correspondiente-->
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -22,7 +23,7 @@
     </nav>
     
 </header>
-
+<!-- Estructura de como se modifica un coche -->
 <main>
     <h1>Modificar Coche</h1>
     <div class="form-container">
@@ -48,11 +49,11 @@
 </footer>
 
 <script>
-    // Obtener el ID del coche de la URL
+    <!-- Obtener el ID del coche de la URL -->
     const urlParams = new URLSearchParams(window.location.search);
     const cocheId = urlParams.get('id');
 
-    // Cargar los datos del coche usando el ID
+     <!--Cargar los datos del coche usando el ID -->
     if (cocheId) {
         fetch(`coche.php?id=${cocheId}`)
             .then(response => response.json())
@@ -73,7 +74,7 @@
         alert("No se proporcionó un ID de coche.");
     }
 
-    // Función para validar el formulario
+    <!-- Función para validar el formulario -->
     function validarFormulario(event) {
         event.preventDefault(); // Evitar que se envíe el formulario automáticamente
 
@@ -100,7 +101,7 @@
             return;
         }
 
-        // Si todas las validaciones pasan, enviar el formulario
+        <!-- Si todas las validaciones pasan, enviar el formulario -->
         const form = document.getElementById("item_modify_form");
         form.submit();
     }

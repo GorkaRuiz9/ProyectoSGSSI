@@ -1,15 +1,15 @@
 <?php
 
-$servidor = "db";
-$usuario = "admin";
-$contraseña = "test";
-$base_datos = "database";
+$servidor = "db"; // guardar el nombre del servidor
+$usuario = "admin"; // guardar nombre del usuario
+$contraseña = "test"; //guardar contraseña
+$base_datos = "database"; //guardar nombre base de datos
 
-$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
+$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos); //conectarse a la base de datos utilizando los valores correspondientes
 
 
 if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+    die("Error de conexión: " . $conn->connect_error); //si no ha podido darse la conexión escribirá este mensaje
 }
 
 // Consulta para obtener todos los coches

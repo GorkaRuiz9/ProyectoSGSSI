@@ -75,7 +75,7 @@ $conn->close();
     <script src="js/validaciones.js"></script> <!-- Enlace al archivo de validación -->
 </head>
 <body>
-
+//Encabezado
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -87,7 +87,7 @@ $conn->close();
         </ul>
     </nav>
 </header>
-
+//Permite modificar los datos del usuario pero para haya obtenemos primero de la base de datos la información que vamos a cambiar
 <main style="text-align: center;">
     <h1>Perfil del Usuario</h1>
 
@@ -95,34 +95,34 @@ $conn->close();
         <table style="margin: 0 auto;">
             <tr>
                 <td><label for="nombre">Nombre:</label></td>
-                <td><input type="text" id="nombre" name="nombre" value="<?php echo $row['nombre']; ?>" required></td>
+                <td><input type="text" id="nombre" name="nombre" value="<?php echo $row['nombre']; ?>" required></td> //Modificamos nombre
             </tr>
             <tr>
                 <td><label for="apellidos">Apellidos:</label></td>
-                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo $row['apellidos']; ?>" required></td>
+                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo $row['apellidos']; ?>" required></td> //Modificamos apellido
             </tr>
             <tr>
                 <td><label for="dni">DNI:</label></td>
-                <td><input type="text" id="dni" name="dni" value="<?php echo $row['dni']; ?>" required></td>
+                <td><input type="text" id="dni" name="dni" value="<?php echo $row['dni']; ?>" required></td> //Modificamos DNI
             </tr>
             <tr>
                 <td><label for="telefono">Teléfono:</label></td>
-                <td><input type="text" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" required></td>
+                <td><input type="text" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" required></td> //Modificamos teléfono
             </tr>
             <tr>
-                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td>
+                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td> //Modificamos fecha de nacimiento 
                 <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $row['fecha_nacimiento']; ?>" required></td>
             </tr>
             <tr>
-                <td><label for="email">Email:</label></td>
+                <td><label for="email">Email:</label></td> //Modificamos el email
                 <td><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" required></td>
             </tr>
         </table>
         <br>
-        <button type="submit" name="user_modify_submit">Modificar</button>
+        <button type="submit" name="user_modify_submit">Modificar</button> //Botón para enviar todo
     </form>
 </main>
-
+//Pie de página
 <footer>
     <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
 </footer>

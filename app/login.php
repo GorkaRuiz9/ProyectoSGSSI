@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Conexión a la base de datos
-$servername = "db"; // Cambia esto si es necesario
+$servername = "db"; 
 $username = "admin";
 $password = "test";
 $dbname = "database";

@@ -3,7 +3,7 @@
 $servername = "db";
 $username = "admin";
 $password = "test";
-$dbname = "database"; // Cambia esto a tu base de datos
+$dbname = "database"; 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verificar la conexión
