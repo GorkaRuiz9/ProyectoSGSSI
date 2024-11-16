@@ -95,7 +95,7 @@ $conn->close(); // Cerrar la conexion
     </table>
     
     <br>
-    <a href="modify_user.php"><button>Modificar Datos</button></a> // Boton para modificacion de datos del usuario
+    <a href="modify_user.php"><button>Modificar Datos</button></a> <!-- Botón para modificación de datos del usuario -->
 </main>
 
 <footer>

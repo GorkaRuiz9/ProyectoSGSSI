@@ -75,19 +75,19 @@ $conn->close();
     <script src="js/validaciones.js"></script> <!-- Enlace al archivo de validación -->
 </head>
 <body>
-//Encabezado
+<!--Encabezado-->
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
         <ul>
             <li><a href="index.php">Inicio</a></li>
-            <li><a href="quienes-somos.html">Quiénes Somos</a></li>
-            <li><a href="listado-coches.html">Listado de Coches</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="quienes-somos.php">Quiénes Somos</a></li>
+            <li><a href="items.php">Listado de Coches</a></li>
+            <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
 </header>
-//Permite modificar los datos del usuario pero para haya obtenemos primero de la base de datos la información que vamos a cambiar
+<!--Permite modificar los datos del usuario pero para haya obtenemos primero de la base de datos la información que vamos a cambiar-->
 <main style="text-align: center;">
     <h1>Perfil del Usuario</h1>
 
@@ -95,34 +95,34 @@ $conn->close();
         <table style="margin: 0 auto;">
             <tr>
                 <td><label for="nombre">Nombre:</label></td>
-                <td><input type="text" id="nombre" name="nombre" value="<?php echo $row['nombre']; ?>" required></td> //Modificamos nombre
+                <td><input type="text" id="nombre" name="nombre" value="<?php echo $row['nombre']; ?>" required></td> <!--Modificamos nombre-->
             </tr>
             <tr>
                 <td><label for="apellidos">Apellidos:</label></td>
-                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo $row['apellidos']; ?>" required></td> //Modificamos apellido
+                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo $row['apellidos']; ?>" required></td> <!--Modificamos apellido-->
             </tr>
             <tr>
                 <td><label for="dni">DNI:</label></td>
-                <td><input type="text" id="dni" name="dni" value="<?php echo $row['dni']; ?>" required></td> //Modificamos DNI
+                <td><input type="text" id="dni" name="dni" value="<?php echo $row['dni']; ?>" required></td> <!--Modificamos DNI-->
             </tr>
             <tr>
                 <td><label for="telefono">Teléfono:</label></td>
-                <td><input type="text" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" required></td> //Modificamos teléfono
+                <td><input type="text" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" required></td> <!--Modificamos teléfono-->
             </tr>
             <tr>
-                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td> //Modificamos fecha de nacimiento 
+                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td> <!--Modificamos fecha de nacimiento-->
                 <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $row['fecha_nacimiento']; ?>" required></td>
             </tr>
             <tr>
-                <td><label for="email">Email:</label></td> //Modificamos el email
+                <td><label for="email">Email:</label></td> <!--Modificamos el email--> 
                 <td><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" required></td>
             </tr>
         </table>
         <br>
-        <button type="submit" name="user_modify_submit">Modificar</button> //Botón para enviar todo
+        <button type="submit" name="user_modify_submit">Modificar</button> <!--Botón para enviar todo-->
     </form>
 </main>
-//Pie de página
+<!--Pie de página-->
 <footer>
     <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
 </footer>
