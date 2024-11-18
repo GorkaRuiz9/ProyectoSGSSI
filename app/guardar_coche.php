@@ -8,22 +8,29 @@ if ($conn->connect_error) {
 // Si se recibe una solicitud POST para añadir un coche
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos del formulario
-    $nombre = $conn->real_escape_string(trim($_POST['nombre']));
-    $marca = $conn->real_escape_string(trim($_POST['marca']));
+    $nombre = trim($_POST['nombre']);
+    $marca = trim($_POST['marca']);
     $kilometros = (int)$_POST['kilometros'];
     $plazas = (int)$_POST['plazas'];
     $precio = (float)$_POST['precio'];
 
-    // Insertar el nuevo coche en la base de datos
-    $sql_insert = "INSERT INTO coche (nombre, marca, kilometros, plazas, precio) VALUES ('$nombre', '$marca', $kilometros, $plazas, $precio)";
+    // Preparar la consulta SQL con marcadores de posición
+    $stmt = $conn->prepare("INSERT INTO coche (nombre, marca, kilometros, plazas, precio) VALUES (?, ?, ?, ?, ?)");
+    
+    // Vincular los parámetros a los marcadores de posición
+    $stmt->bind_param("ssiii", $nombre, $marca, $kilometros, $plazas, $precio);
 
-    if ($conn->query($sql_insert) === TRUE) {
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
         // Redirigir a la página de listado de coches después de añadir
         header("Location: items.php"); // Cambiar a la URL correcta
         exit(); // Asegúrate de salir después de la redirección
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error al añadir el coche: ' . $conn->error]);
+        echo json_encode(['status' => 'error', 'message' => 'Error al añadir el coche: ' . $stmt->error]);
     }
+
+    // Cerrar la declaración y la conexión
+    $stmt->close();
 }
 
 // Cerrar conexión

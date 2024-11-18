@@ -1,20 +1,21 @@
 <?php
 
-$servidor = "db"; // guardar el nombre del servidor
-$usuario = "admin"; // guardar nombre del usuario
-$contraseña = "test"; //guardar contraseña
-$base_datos = "database"; //guardar nombre base de datos
+$servidor = "db"; // nombre del servidor
+$usuario = "admin"; // nombre del usuario
+$contraseña = "test"; // contraseña
+$base_datos = "database"; // nombre de la base de datos
 
-$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos); //conectarse a la base de datos utilizando los valores correspondientes
-
+// Conexión a la base de datos
+$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
 
 if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error); //si no ha podido darse la conexión escribirá este mensaje
+    die("Error de conexión: " . $conn->connect_error); // Mensaje de error si la conexión falla
 }
 
-// Consulta para obtener todos los coches
-$sql = "SELECT * FROM coche";
-$result = $conn->query($sql);
+// Consulta preparada para obtener todos los coches
+$stmt = $conn->prepare("SELECT * FROM coche");
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Array para almacenar los coches
 $coches = [];
@@ -30,6 +31,7 @@ header('Content-Type: application/json');
 echo json_encode($coches);
 
 // Cierra la conexión
+$stmt->close();
 $conn->close();
 ?>
 

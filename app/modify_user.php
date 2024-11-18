@@ -24,8 +24,13 @@ if ($conn->connect_error) {
 $user = $_SESSION['username'];
 
 // Consulta para obtener los datos del usuario
-$sql = "SELECT * FROM usuarios WHERE nombre='$user' OR email='$user'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre = ? OR email = ?");
+if ($stmt === false) {
+    die("Error en la preparación de la consulta: " . $conn->error);
+}
+$stmt->bind_param("ss", $user, $user); // 'ss' indica que ambos parámetros son de tipo string
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc(); // Obtener los datos del usuario
@@ -44,24 +49,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
 
     // Consulta para actualizar los datos del usuario en la base de datos
-    $update_sql = "UPDATE usuarios SET 
-                    nombre='$nombre', 
-                    apellidos='$apellidos', 
-                    dni='$dni', 
-                    telefono='$telefono', 
-                    fecha_nacimiento='$fecha_nacimiento', 
-                    email='$email' 
-                   WHERE nombre='$user' OR email='$user'";
-
-    if ($conn->query($update_sql) === TRUE) {
-        //echo "Datos actualizados correctamente.";
+    $update_stmt = $conn->prepare("UPDATE usuarios SET 
+                                    nombre = ?, 
+                                    apellidos = ?, 
+                                    dni = ?, 
+                                    telefono = ?, 
+                                    fecha_nacimiento = ?, 
+                                    email = ? 
+                                    WHERE nombre = ? OR email = ?");
+    if ($update_stmt === false) {
+        die("Error en la preparación de la consulta: " . $conn->error);
+    }
+    $update_stmt->bind_param("ssssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $user, $user); // Vinculando parámetros de entrada
+    if ($update_stmt->execute()) {
         $_SESSION['username'] = $nombre; // Actualizar el nombre de usuario en la sesión si se cambió
         header("Location: index.php");
     } else {
         echo "Error al actualizar los datos: " . $conn->error;
     }
+
+    // Cerrar la sentencia de actualización
+    $update_stmt->close();
 }
 
+// Cerrar la sentencia de selección y la conexión
+$stmt->close();
 $conn->close();
 ?>
 

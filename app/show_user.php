@@ -7,7 +7,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Varaibles
+// Variables de conexión
 $servername = "db";
 $usernameDB = "admin";
 $passwordDB = "test";
@@ -23,9 +23,18 @@ if ($conn->connect_error) {
 // Obtener el nombre de usuario de la sesión
 $user = $_SESSION['username'];
 
-// Consulta para obtener los datos del usuario
-$sql = "SELECT * FROM usuarios WHERE nombre='$user' OR email='$user'";
-$result = $conn->query($sql);
+// Sentencia preparada para obtener los datos del usuario
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre = ? OR email = ?");
+if ($stmt === false) {
+    die("Error en la preparación de la consulta: " . $conn->error);
+}
+
+// Vincular los parámetros
+$stmt->bind_param("ss", $user, $user); // 'ss' indica que ambos parámetros son cadenas (strings)
+
+// Ejecutar la consulta
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc(); // Obtener los datos del usuario
@@ -34,8 +43,10 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-$conn->close(); // Cerrar la conexion
+$stmt->close(); // Cerrar la sentencia
+$conn->close(); // Cerrar la conexión
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
