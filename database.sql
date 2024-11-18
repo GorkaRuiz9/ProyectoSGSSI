@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
+    nombre VARCHAR(50) UNIQUE NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     dni VARCHAR(10) UNIQUE NOT NULL,
     telefono VARCHAR(9) NOT NULL,
@@ -41,10 +41,11 @@ CREATE TABLE usuarios (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email,contraseña)
+INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña)
 VALUES 
 ('Juan', 'Pérez García', '12345678-Z', '612345678', '1990-05-15', 'juan.perez@example.com', '12345678'),
-('María', 'López Sánchez', '87654321-X', '689123456', '1985-10-30', 'maria.lopez@example.com', '87654321');
+('María', 'López Sánchez', '87654321-X', '689123456', '1985-10-30', 'maria.lopez@example.com', '87654321'),
+('admin', 'Administrador', '00000000-A', '600000000', '2000-01-01', 'admin@example.com', 'admin123');
 
 --
 -- Creación de la tabla `coche`

@@ -1,12 +1,14 @@
 function validarFormulario() {
-    // Recopilar la informacion de los campos correspondientes
-    const nombre = document.getElementById("nombre").value;
-    const apellidos = document.getElementById("apellidos").value;
-    const dni = document.getElementById("dni").value;
-    const telefono = document.getElementById("telefono").value;
-    const fechaNacimiento = document.getElementById("fecha_nacimiento").value;
-    const email = document.getElementById("email").value;
+    // Recopilar la información de los campos correspondientes
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellidos = document.getElementById("apellidos").value.trim();
+    const dni = document.getElementById("dni").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const fechaNacimiento = document.getElementById("fecha_nacimiento").value.trim();
+    const email = document.getElementById("email").value.trim();
     let errores = []; // Array para almacenar los mensajes de error
+
+    
 
     // Validación de nombre y apellidos (solo permite letras y espacios)
     const nombreRegex = /^[\p{L}\s]+$/u;

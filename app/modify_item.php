@@ -1,3 +1,56 @@
+<?php
+ob_start(); // Inicia el buffer de salida
+
+// Inicia la sesión
+session_start();
+
+// Verifica si el usuario ha iniciado sesión y si su nombre es "admin"
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['username'] !== 'admin') {
+    // Si no es admin, redirige a la página de inicio de sesión
+    header("Location: index.php");
+    exit; // Finaliza la ejecución del script para evitar que se cargue la página
+}
+
+// Conexión a la base de datos
+$servidor = "db"; 
+$usuario = "admin";
+$contraseña = "test";
+$base_datos = "database";
+
+$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
+
+// Verifica errores de conexión
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+// Si se ha enviado el formulario, actualiza el coche en la base de datos
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $marca = $_POST['marca'];
+    $kilometros = $_POST['kilometros'];
+    $plazas = $_POST['plazas'];
+    $precio = $_POST['precio'];
+
+    // Actualiza el coche en la base de datos
+    $sql = "UPDATE coche SET nombre=?, marca=?, kilometros=?, plazas=?, precio=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssiiid", $nombre, $marca, $kilometros, $plazas, $precio, $id);
+
+    if ($stmt->execute()) {
+        header("Location: items.php"); // Redirige si la actualización es exitosa
+        exit(); 
+    } else {
+        echo "Error al modificar el coche: " . $stmt->error; // Muestra error si falla
+    }
+
+    $stmt->close(); // Cierra el statement
+    $conn->close(); // Cierra la conexión
+    ob_end_flush(); // Envía el contenido del buffer
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +63,7 @@
 </head>
 <body>
 
-<!--Vincula cada fichero a la página correspondiente-->
+<!-- Vincula cada fichero a la página correspondiente -->
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -21,13 +74,13 @@
             <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
-    
 </header>
+
 <!-- Estructura de como se modifica un coche -->
 <main>
     <h1>Modificar Coche</h1>
     <div class="form-container">
-        <form id="item_modify_form" action="actualizar-coche.php" method="POST" onsubmit="validarFormulario(event)" name="item_modify_form">
+        <form id="item_modify_form" action="" method="POST" onsubmit="validarFormulario(event)" name="item_modify_form">
             <input type="hidden" id="id" name="id" value="">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>

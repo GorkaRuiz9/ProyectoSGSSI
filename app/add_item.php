@@ -1,3 +1,52 @@
+<?php
+// Iniciar sesión para acceder a la variable $_SESSION
+session_start();
+
+// Verificar si el usuario es admin
+if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'admin') {
+    // Si no es admin, redirigir a una página de acceso denegado o al inicio
+    header("Location: index.php"); // Cambia la URL según lo que necesites
+    exit();
+}
+
+// Conexión a la base de datos
+$conn = new mysqli("db", "admin", "test", "database"); // Cambiar credenciales si es necesario
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Si se recibe una solicitud POST para añadir un coche
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $nombre = trim($_POST['nombre']);
+    $marca = trim($_POST['marca']);
+    $kilometros = (int)$_POST['kilometros'];
+    $plazas = (int)$_POST['plazas'];
+    $precio = (float)$_POST['precio'];
+
+    // Preparar la consulta SQL con marcadores de posición
+    $stmt = $conn->prepare("INSERT INTO coche (nombre, marca, kilometros, plazas, precio) VALUES (?, ?, ?, ?, ?)");
+
+    // Vincular los parámetros a los marcadores de posición
+    $stmt->bind_param("ssiii", $nombre, $marca, $kilometros, $plazas, $precio);
+
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+        // Redirigir a la página de listado de coches después de añadir
+        header("Location: items.php"); // Cambiar a la URL correcta
+        exit(); // Asegúrate de salir después de la redirección
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Error al añadir el coche: ' . $stmt->error]);
+    }
+
+    // Cerrar la declaración y la conexión
+    $stmt->close();
+}
+
+// Cerrar conexión
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +73,7 @@
 
     <main>
         <h1>Añadir un Coche</h1>
-        <form id="item_add_form" name="item_add_form" action="guardar_coche.php" method="POST" onsubmit="validarFormulario(event)">
+        <form id="item_add_form" name="item_add_form" action="" method="POST" onsubmit="validarFormulario(event)">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required> <!-- Campo para el nombre del coche -->
 
@@ -86,3 +135,4 @@
 
 </body>
 </html>
+
