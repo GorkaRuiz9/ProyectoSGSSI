@@ -1,0 +1,19 @@
+# Bloquear acceso externo a CSS y JS
+<FilesMatch "\.(css|js)$">
+    <RequireAll>
+        # Permitir solo solicitudes que provienen de tu dominio
+        Require expr "%{HTTP_REFERER} =~ m#^https?://(www\.)?tu-dominio\.com/#"
+        
+    </RequireAll>
+</FilesMatch>
+
+# Eliminar el encabezado X-Original-URL de las solicitudes entrantes
+<IfModule mod_headers.c>
+    RequestHeader unset X-Original-URL
+</IfModule>
+
+# Bloquear solicitudes que contengan el encabezado X-Original-URL
+<If "%{HTTP:X-Original-URL}">
+    Require all denied
+</If>
+
