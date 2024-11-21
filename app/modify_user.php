@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 }
 
 // Obtener el nombre de usuario de la sesión
-$user = $_SESSION['username'];
+$user = $_SESSION['username'];  // Cambia 'username' por el valor adecuado de la sesión
 
 // Consulta para obtener los datos del usuario
 $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre = ? OR email = ?");
@@ -34,6 +34,11 @@ $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc(); // Obtener los datos del usuario
+    // Si el nombre del usuario es 'admin', redirigir a index.php
+    if ($row['nombre'] == 'admin') {
+        header("Location: index.php");
+        exit();
+    }
 } else {
     echo "Error: No se encontró el usuario.";
     exit();
@@ -76,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $stmt->close();
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -99,41 +103,43 @@ $conn->close();
         </ul>
     </nav>
 </header>
-<!--Permite modificar los datos del usuario pero para haya obtenemos primero de la base de datos la información que vamos a cambiar-->
+
 <main style="text-align: center;">
     <h1>Perfil del Usuario</h1>
 
-    <form id="" action="modify_user.php" method="post" name="user_modify_form" onsubmit="return validarFormulario()">
+    <!--Formulario con datos pre-cargados-->
+    <form action="modify_user.php" method="post" name="user_modify_form" onsubmit="return validarFormulario()">
         <table style="margin: 0 auto;">
             <tr>
                 <td><label for="nombre">Nombre:</label></td>
-                <td><input type="text" id="nombre" name="nombre" value="<?php echo $row['nombre']; ?>" required></td> <!--Modificamos nombre-->
+                <td><input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($row['nombre']); ?>" required></td>
             </tr>
             <tr>
                 <td><label for="apellidos">Apellidos:</label></td>
-                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo $row['apellidos']; ?>" required></td> <!--Modificamos apellido-->
+                <td><input type="text" id="apellidos" name="apellidos" value="<?php echo htmlspecialchars($row['apellidos']); ?>" required></td>
             </tr>
             <tr>
                 <td><label for="dni">DNI:</label></td>
-                <td><input type="text" id="dni" name="dni" value="<?php echo $row['dni']; ?>" required></td> <!--Modificamos DNI-->
+                <td><input type="text" id="dni" name="dni" value="<?php echo htmlspecialchars($row['dni']); ?>" required></td>
             </tr>
             <tr>
                 <td><label for="telefono">Teléfono:</label></td>
-                <td><input type="text" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>" required></td> <!--Modificamos teléfono-->
+                <td><input type="text" id="telefono" name="telefono" value="<?php echo htmlspecialchars($row['telefono']); ?>" required></td>
             </tr>
             <tr>
-                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td> <!--Modificamos fecha de nacimiento-->
-                <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo $row['fecha_nacimiento']; ?>" required></td>
+                <td><label for="fecha_nacimiento">Fecha de Nacimiento:</label></td>
+                <td><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo htmlspecialchars($row['fecha_nacimiento']); ?>" required></td>
             </tr>
             <tr>
-                <td><label for="email">Email:</label></td> <!--Modificamos el email--> 
-                <td><input type="email" id="email" name="email" value="<?php echo $row['email']; ?>" required></td>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required></td>
             </tr>
         </table>
         <br>
-        <button type="submit" name="user_modify_submit">Modificar</button> <!--Botón para enviar todo-->
+        <button type="submit" name="user_modify_submit">Modificar</button>
     </form>
 </main>
+
 <!--Pie de página-->
 <footer>
     <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
