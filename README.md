@@ -43,4 +43,4 @@ NOMBRES DE LOS INTEGRANTES
 "Unai Iguaran"
 "Iker Salazar"
 "Aimar Negro"
-"Alejandro Muñoz"
+
