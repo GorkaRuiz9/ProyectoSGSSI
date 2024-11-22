@@ -58,12 +58,123 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Coche</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado2.js" defer></script> <!-- Referenciamos a los js que hemos hecho para el diseño-->
+    <style>
+        /* Estilos globales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Estilos del header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #6c63ff;
+        }
+
+        /* Estilos del main */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #6c63ff;
+        }
+
+        /* Estilos del formulario */
+        .form-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-top: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6c63ff;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5851db;
+        }
+
+        /* Estilos del footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer p:hover {
+            color: #6c63ff;
+        }
+    </style>
+    <script src="js/listado2.js" defer></script> <!-- Referenciamos a los js que hemos hecho para el diseño -->
 </head>
 <body>
 
-<!-- Vincula cada fichero a la página correspondiente -->
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -76,7 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
-<!-- Estructura de como se modifica un coche -->
 <main>
     <h1>Modificar Coche</h1>
     <div class="form-container">
@@ -102,11 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </footer>
 
 <script>
-    <!-- Obtener el ID del coche de la URL -->
+    // Obtener el ID del coche de la URL
     const urlParams = new URLSearchParams(window.location.search);
     const cocheId = urlParams.get('id');
 
-     <!--Cargar los datos del coche usando el ID -->
+    // Cargar los datos del coche usando el ID
     if (cocheId) {
         fetch(`coche.php?id=${cocheId}`)
             .then(response => response.json())
@@ -127,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         alert("No se proporcionó un ID de coche.");
     }
 
-    <!-- Función para validar el formulario -->
+    // Función para validar el formulario
     function validarFormulario(event) {
         event.preventDefault(); // Evitar que se envíe el formulario automáticamente
 
@@ -154,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return;
         }
 
-        <!-- Si todas las validaciones pasan, enviar el formulario -->
+        // Si todas las validaciones pasan, enviar el formulario
         const form = document.getElementById("item_modify_form");
         form.submit();
     }

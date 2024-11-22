@@ -53,9 +53,171 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concesionario - Añadir Coche</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles1.css">
-    <script src="js/listado2.js" defer></script> <!-- Incluye el script listado2.js para funciones adicionales -->
+
+    <!-- Estilos embebidos -->
+    <style>
+        /* Estilos globales */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        /* Estilos del header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #6c63ff;
+        }
+
+        /* Estilos del formulario */
+        form {
+            background-color: #3c3c3c;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            font-size: 16px;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5851db;
+        }
+
+        /* Estilos del main */
+        main {
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #6c63ff;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos del footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer p:hover {
+            color: #6c63ff;
+        }
+
+        /* Estilos para la página de listado de coches */
+        .listado-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+        }
+
+        /* Columna para el formulario */
+        .form-col {
+            width: 30%;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            margin: 0 20px;
+        }
+
+        /* Estilos del dropdown */
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* NUEVOS ESTILOS PARA LA TABLA DE CARACTERÍSTICAS */
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            background-color: #fff;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6c63ff;
+            color: white;
+            text-align: center;
+        }
+
+        td:hover {
+            background-color: transparent;
+            cursor: default;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -75,21 +237,21 @@ $conn->close();
         <h1>Añadir un Coche</h1>
         <form id="item_add_form" name="item_add_form" action="" method="POST" onsubmit="validarFormulario(event)">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required> <!-- Campo para el nombre del coche -->
+            <input type="text" id="nombre" name="nombre" required>
 
             <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca" required> <!-- Campo para la marca del coche -->
+            <input type="text" id="marca" name="marca" required>
 
             <label for="kilometros">Kilómetros:</label>
-            <input type="number" id="kilometros" name="kilometros" required> <!-- Campo para los kilómetros -->
+            <input type="number" id="kilometros" name="kilometros" required>
 
             <label for="plazas">Plazas:</label>
-            <input type="number" id="plazas" name="plazas" required> <!-- Campo para el número de plazas -->
+            <input type="number" id="plazas" name="plazas" required>
 
             <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" step="0.01" required> <!-- Campo para el precio del coche -->
+            <input type="number" id="precio" name="precio" step="0.01" required>
 
-            <button type="submit" name="item_add_submit">Guardar Coche</button> <!-- Botón para enviar el formulario -->
+            <button type="submit" name="item_add_submit">Guardar Coche</button>
         </form>
     </main>
 
@@ -98,21 +260,18 @@ $conn->close();
     </footer>
 
     <script>
-        // Función para validar los datos del formulario antes de enviarlo
         function validarFormulario(event) {
-            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+            event.preventDefault(); // Evitar el envío del formulario
 
-            // Obtener los valores de los campos
             const nombre = document.getElementById("nombre").value.trim();
             const marca = document.getElementById("marca").value.trim();
             const kilometros = parseInt(document.getElementById("kilometros").value);
             const plazas = parseInt(document.getElementById("plazas").value);
             const precio = parseFloat(document.getElementById("precio").value);
 
-            // Validaciones de los campos
             if (nombre === "" || marca === "") {
                 alert("Los campos Nombre y Marca no pueden estar vacíos.");
-                return; // Salir de la función si hay error
+                return;
             }
             if (kilometros < 0) {
                 alert("Los kilómetros no pueden ser negativos.");
@@ -127,9 +286,8 @@ $conn->close();
                 return;
             }
 
-            // Si todas las validaciones pasan, enviar el formulario
             const form = document.getElementById("item_add_form");
-            form.submit(); // Envía el formulario
+            form.submit();
         }
     </script>
 

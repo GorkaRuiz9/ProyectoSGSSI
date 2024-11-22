@@ -9,62 +9,133 @@ session_start(); // Iniciar sesión
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiénes Somos - Concesionario Manolín</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles1.css"> <!--Elegimos el estilo styles1.css para la página-->
     <style>
-        // Estilo para  el cuerpo
+        /* Estilos globales */
         body {
-            margin: 0; /* Elimina el margen predeterminado */
-            background-color: #1a1a1a; /* Color de fondo de la página */
-            color: #ffffff; /* Color del texto */
-            font-family: 'Roboto', sans-serif; /* Fuente de la página */
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
         }
 
-        // Estilo para el footer 
-        footer {
-            text-align: center; /* Centra el texto del pie de página */
-            background-color: #333; /* Color de fondo para el footer */
-            padding: 10px 0; /* Espaciado interno */
-            color: #ffffff; /* Color del texto del footer */
+        /* Estilos del header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 20px;
         }
 
-        // Estilo para el main 
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #6c63ff;
+        }
+
+        /* Botones de autenticación */
+        .auth-buttons {
+            float: right;
+        }
+
+        .auth-btn {
+            background-color: #6c63ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .auth-btn:hover {
+            background-color: #5851db;
+        }
+
+        /* Estilos del main */
         main {
-            padding: 20px; /* Espaciado interno para el contenido */
-            max-width: 800px; /* Ancho máximo para que no se extienda demasiado */
-            margin: 0 auto; /* Centra el contenido */
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        // Estilo para el contenedor de valores
+        h1 {
+            font-size: 2.5em;
+            color: #6c63ff;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos de la lista de valores */
         .valores-container {
-            display: flex; /*Centrar el contenido */
-            justify-content: center; /* Centrar horizontalmente */
-            align-items: center; /* Centrar verticalmente */
-            margin-top: 20px; /* Espacio superior */
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        // Estilo para la sección de valores 
         .valores-list {
-            text-align: left; /* Alinear el texto a la izquierda */
-            margin-left: 50px; /* Sangrado uniforme a la izquierda */
-            list-style-type: none; /* Eliminar los puntos de la lista */
-            padding: 0; /* Eliminar el padding predeterminado */
+            text-align: left;
+            margin-left: 50px;
+            list-style-type: none;
+            padding: 0;
         }
 
         .valores-list li {
-            margin-bottom: 10px; /* Espacio entre cada elemento de la lista */
+            margin-bottom: 10px;
         }
 
-        // Estilo para la imagen del concesionario 
+        /* Estilos de la imagen del concesionario */
         .concesionario-image {
-            max-width: 300px; /* Ajusta el ancho máximo deseado */
-            height: auto; /* Mantiene la proporción de la imagen */
+            max-width: 300px;
+            height: auto;
             margin-top: 30px;
             border-radius: 15px;
+        }
+
+        /* Estilos del footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer p:hover {
+            color: #6c63ff;
         }
     </style>
 </head>
 <body>
-<!--Encabezado. Vinculamos los ficheros con sus respectivas páginas-->
 <header>
     <div class="logo">Concesionario Manolín</div>
     <nav>
@@ -75,7 +146,6 @@ session_start(); // Iniciar sesión
             <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
-<!--Botones de Registro e Inicio de sesión-->
     <div class="auth-buttons">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
             <a href="show_user.php" id="profile-btn" class="auth-btn">Perfil</a>
@@ -86,7 +156,6 @@ session_start(); // Iniciar sesión
         <?php endif; ?>
     </div>
 </header>
-<!--Cuerpo de la página. Escribimos los mensajes que queremos que se lean.-->
 <main>
     <h1>Quiénes Somos</h1>
     <p>En el <strong>Concesionario Manolín</strong>, llevamos más de 15 años en Bilbao ofreciendo vehículos de alta gama. Nos apasiona ayudar a nuestros clientes a encontrar el coche perfecto que se adapte a sus necesidades y estilo de vida. Nuestra amplia experiencia en el sector nos permite ofrecer un servicio excepcional, siempre con una atención personalizada.</p>
@@ -109,7 +178,7 @@ session_start(); // Iniciar sesión
 
     <h2>¿Por Qué Elegirnos?</h2>
     <p>En el <strong>Concesionario Manolín</strong>, no solo vendemos coches, sino que creamos relaciones. Nuestro equipo de expertos está siempre listo para asesorarte y acompañarte en cada paso del proceso de compra. Nos enorgullece ser parte de tu viaje hacia la adquisición del coche de tus sueños. Además, ofrecemos un servicio post-venta para asegurar que tu experiencia con nosotros sea siempre positiva.</p>
-<!--URLs de redes sociales-->
+
     <div style="margin-top: 30px;">
         <h2>Síguenos en nuestras redes sociales</h2>
         <p><a href="https://instagram.com/ConcesionarioManolin" target="_blank">Instagram</a></p>
@@ -117,20 +186,11 @@ session_start(); // Iniciar sesión
         <p><a href="https://twitter.com/ManolinCoches" target="_blank">Twitter</a></p>
     </div>
 
-    <!-- Imagen del concesionario -->
     <img src="concesionario.jpg" alt="Imagen del concesionario" class="concesionario-image">
-
 </main>
-<!--Pie de página-->
 <footer>
     <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
 </footer>
-
-<?php
-// Incluimos el contenido de quienes-somos.html, si es necesario
-// include 'quienes-somos.html';
-?>
-
 </body>
 </html>
 
