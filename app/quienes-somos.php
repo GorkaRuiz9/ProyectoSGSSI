@@ -8,8 +8,22 @@ session_start(); // Iniciar sesión
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiénes Somos - Concesionario Manolín</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Carga de fuentes locales */
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Regular.ttf') format('truetype'),
+                 url('fonts/Roboto-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Bold.ttf') format('truetype');
+            font-weight: bold;
+        }
+
         /* Estilos globales */
         body {
             font-family: 'Roboto', sans-serif;

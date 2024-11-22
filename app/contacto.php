@@ -21,8 +21,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Concesionario Manolín</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Carga de fuentes locales */
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Regular.ttf') format('truetype'),
+                 url('fonts/Roboto-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Bold.ttf') format('truetype');
+            font-weight: bold;
+        }
+
         /* Estilos globales */
         body {
             font-family: 'Roboto', sans-serif;
@@ -158,77 +172,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .contact-form button:hover {
             background-color: #5851db;
         }
-
-        /* Información de contacto */
-        .contact-info {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .contact-info p {
-            font-size: 1.1em;
-        }
-
-        .contact-info a {
-            color: #6c63ff;
-            text-decoration: none;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
-        }
-
-        /* NUEVOS ESTILOS PARA LA TABLA DE CARACTERÍSTICAS */
-        #caracteristicas-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 50vh;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            background-color: #fff;
-            color: #333;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.3s ease;
-        }
-
-        th {
-            background-color: #6c63ff;
-            color: white;
-            text-align: center;
-        }
-
-        td:hover {
-            background-color: transparent;
-            cursor: default;
-        }
-
-        .auth-buttons {
-            float: right;
-        }
-
-        .auth-btn {
-            background-color: #6c63ff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .auth-btn:hover {
-            background-color: #5851db;
-        }
     </style>
 </head>
 <body>
@@ -243,21 +186,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
-
-    <div class="auth-buttons">
-        <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-            <a href="show_user.php" id="profile-btn" class="auth-btn">Perfil</a>
-            <a href="logout.php" class="auth-btn">Cerrar Sesión</a>
-        <?php else: ?>
-            <a href="login.html" id="login-btn" class="auth-btn">Iniciar Sesión</a>
-            <a href="register.html" id="register-btn" class="auth-btn">Registro</a>
-        <?php endif; ?>
-    </div>
 </header>
 
 <main>
     <h1>Contacto</h1>
-    <p>Si tienes alguna pregunta, comentario o inquietud, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte.</p>
+    <p>Si tienes alguna pregunta, comentario o inquietud, no dudes en ponerte en contacto con nosotros.</p>
 
     <div class="contact-form">
         <form action="contacto.php" method="post">
@@ -266,17 +199,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <textarea name="mensaje" rows="5" placeholder="Tu Mensaje" required></textarea>
             <button type="submit">Enviar</button>
         </form>
-    </div>
-
-    <div class="contact-info">
-        <h2>Información de Contacto</h2>
-        <p><strong>Teléfono:</strong> +34 (408) 102-1436</p>
-        <p><strong>Email:</strong> contacto@concesionariomanolin.com</p>
-        <p><strong>Dirección:</strong> Calle Manuel Allende, 4, Abando, 48010 Bilbao, Bizkaia</p>
-        <p><strong>Síguenos en nuestras redes sociales:</strong></p>
-        <p><a href="https://instagram.com/ConcesionarioManolin" target="_blank">Instagram</a></p>
-        <p><a href="https://facebook.com/ConcesionarioManolinBilbao" target="_blank">Facebook</a></p>
-        <p><a href="https://twitter.com/ManolinCoches" target="_blank">Twitter</a></p>
     </div>
 </main>
 
