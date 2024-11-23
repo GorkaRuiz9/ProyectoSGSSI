@@ -1,5 +1,6 @@
 <?php
-header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad
+header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
+// Agregar el encabezado de seguridad
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de información en variables si ha recibido un POST
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];

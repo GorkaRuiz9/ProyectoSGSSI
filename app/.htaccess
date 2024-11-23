@@ -1,4 +1,17 @@
 <IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-</IfModule>
+    # Content Security Policy
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self';"
 
+    # X-Content-Type-Options para evitar detección de tipo
+    Header set X-Content-Type-Options "nosniff"
+
+    # Aplicar X-Content-Type-Options a archivos HTML
+    <FilesMatch "\.html$">
+        Header set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+
+    # Aplicar X-Content-Type-Options a archivos JPG y JPEG
+    <FilesMatch "\.(jpg|jpeg)$">
+        Header set X-Content-Type-Options "nosniff"
+    </FilesMatch>
+</IfModule>

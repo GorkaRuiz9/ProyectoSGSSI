@@ -1,6 +1,7 @@
 <?php
 session_start(); // Iniciar sesión
 header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad
+
 ?>
 
 <!DOCTYPE html>
