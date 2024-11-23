@@ -1,6 +1,6 @@
 <?php
 session_start(); // Iniciar sesión
-
+header("X-Content-Type-Options: nosniff");
 // Inicializa la sesión de inicio de sesión
 if (!isset($_SESSION['loggedin'])) {
     $_SESSION['loggedin'] = false; // Inicializa como false si no está definido

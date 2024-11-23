@@ -1,5 +1,6 @@
 <?php
 session_start(); // Iniciar sesión para gestionar la información del usuario.
+header("X-Content-Type-Options: nosniff");
 ?>
 
 <!DOCTYPE html>
