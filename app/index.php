@@ -275,7 +275,7 @@ session_start(); // Iniciar sesión para gestionar la información del usuario.
 <main>
     <h1>Bienvenidos a Concesionario Manolín</h1> <!-- Título principal de la página -->
     <p>Descubre los mejores vehículos al mejor precio. Encuentra tu coche ideal con nosotros.</p> <!-- Descripción del concesionario -->
-    <img src="car1.jpg" alt="Imagen de coche" class="car-image"> <!-- Imagen representativa de los coches -->
+    <img src="foto1.jpeg" alt="Imagen de coche" class="car-image"> <!-- Imagen representativa de los coches -->
 </main>
 
 <footer>
