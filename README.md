@@ -17,7 +17,10 @@ $ docker image rm web:latest
 ```bash
 $ docker build -t="web" .
 ```
-
+You have to give access to the logs (From the ProyectoSGSSI directory)
+```bash
+$ chmod 666 app/log.txt
+```
 To start the container:
 ```bash
 $ docker-compose up 
