@@ -1,5 +1,12 @@
 <?php
-session_start(); // Inicia la sesión para poder acceder a las variables de sesión
+
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Asegura que la cookie sea solo para HTTPS
+    'samesite' => 'Strict',              // Opcional: protege contra CSRF
+]);
+session_start(); // Iniciar sesió
+session_regenerate_id(true);
 ?>
 <!DOCTYPE html>
 <html lang="es">
