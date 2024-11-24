@@ -1,6 +1,8 @@
 <?php
 session_start(); // Iniciar sesión
-header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad
+ob_start();
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
+header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
 
 ?>
 
