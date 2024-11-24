@@ -1,9 +1,14 @@
 <?php
 ob_start(); // Inicia el buffer de salida
 
-// Inicia la sesión
-session_start();
 
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Asegura que la cookie sea solo para HTTPS
+    'samesite' => 'Strict',              // Opcional: protege contra CSRF
+]);
+session_start(); // Iniciar sesió
+session_regenerate_id(true);
 // Verifica si el usuario ha iniciado sesión y si su nombre es "admin"
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || $_SESSION['username'] !== 'admin') {
     // Si no es admin, redirige a la página de inicio de sesión
