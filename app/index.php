@@ -1,5 +1,12 @@
 <?php
-session_start(); // Iniciar sesión para gestionar la información del usuario.
+
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Asegura que la cookie sea solo para HTTPS
+    'samesite' => 'Strict',              // Opcional: protege contra CSRF
+]);
+session_start(); // Iniciar sesió
+session_regenerate_id(true);
 ob_start();
 header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
 header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad 
