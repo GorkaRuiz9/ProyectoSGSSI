@@ -1,6 +1,12 @@
 <?php
-// Iniciamos la sesión de PHP para manejar la autenticación del usuario
-session_start();
+
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Asegura que la cookie sea solo para HTTPS
+    'samesite' => 'Strict',              // Opcional: protege contra CSRF
+]);
+session_start(); // Iniciar sesió
+session_regenerate_id(true);
 
 // Verificamos si el usuario ha iniciado sesión
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
