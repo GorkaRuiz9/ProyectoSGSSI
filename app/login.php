@@ -1,5 +1,12 @@
 <?php
-session_start(); // Iniciar sesión
+
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => isset($_SERVER['HTTPS']), // Asegura que la cookie sea solo para HTTPS
+    'samesite' => 'Strict',              // Opcional: protege contra CSRF
+]);
+session_start(); // Iniciar sesió
+session_regenerate_id(true);
 header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad 
 
 // Habilitar los reportes de errores para PHP
