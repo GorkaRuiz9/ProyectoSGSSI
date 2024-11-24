@@ -269,7 +269,7 @@ header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad
         <?php else: ?>
             <!-- Si el usuario no está autenticado, mostrar enlaces para iniciar sesión y registrarse -->
             <a href="login.html" id="login-btn" class="auth-btn">Iniciar Sesión</a>
-            <a href="register.html" id="register-btn" class="auth-btn">Registro</a>
+            <a href="register.php" id="register-btn" class="auth-btn">Registro</a>
         <?php endif; ?>
     </div>
 </header>

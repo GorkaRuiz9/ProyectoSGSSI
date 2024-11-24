@@ -1,7 +1,7 @@
 <?php
-header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
-// Agregar el encabezado de seguridad
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de información en variables si ha recibido un POST
+header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $dni = $_POST['dni'];
@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de información en vari
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $email = $_POST['email'];
     $contraseña = $_POST['contraseña'];
-    
+
     // Variables de conexión a la base de datos
     $hostname = "db";
     $username = "admin";
@@ -24,28 +24,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de información en vari
         die("Error de conexión a la base de datos: " . $mysqli->connect_error);
     }
 
-    // Preparar la consulta SQL para insertar los datos
-    $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $contraseña);
+    // Array de errores
+    $errores = [];
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        echo "Registro exitoso.";
-    } else {
-        echo "Error en el registro: " . $stmt->error;
+    // Crear un array con los campos a validar
+    $campos_a_validar = [
+        'dni' => $dni,
+        'telefono' => $telefono,
+        'email' => $email
+    ];
+
+    // Comprobar si alguno de los valores ya existe en la base de datos (DNI, Teléfono o Email)
+    foreach ($campos_a_validar as $campo => $valor) {
+        // Preparar consulta para verificar si el valor ya existe
+        $stmt = $mysqli->prepare("SELECT id FROM usuarios WHERE $campo = ?");
+        $stmt->bind_param("s", $valor); // Vinculamos el valor como cadena
+        $stmt->execute();
+        $stmt->store_result(); // Almacenamos el resultado para verificar el número de filas
+
+        if ($stmt->num_rows > 0) {
+            // Si ya existe el campo, agregamos el error al array
+            $errores[] = "El $campo ya está registrado.";
+        }
+
+        $stmt->close(); // Cerrar el statement después de la validación
+    }
+
+    // Validación adicional de campos (por ejemplo, DNI, teléfono, etc.)
+    if (empty($errores)) {
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/", $nombre)) {
+            $errores[] = "El nombre solo debe contener letras.";
+        }
+        if (!preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/", $apellidos)) {
+            $errores[] = "Los apellidos solo deben contener letras.";
+        }
+        if (!preg_match("/^[0-9]{8}-[A-Z]$/", $dni)) {
+            $errores[] = "El DNI debe tener el formato 11111111-Z.";
+        } else {
+            $numeroDNI = substr($dni, 0, 8);
+            $letraDNI = strtoupper(substr($dni, -1));
+            $letras = "TRWAGMYFPDXBNJZSQVHLCKE"; // Letras válidas según el número de DNI
+            $letraCalculada = $letras[$numeroDNI % 23];
+
+            if ($letraDNI !== $letraCalculada) {
+                $errores[] = "La letra del DNI no corresponde con el número.";
+            }
+        }
+        if (!preg_match("/^[0-9]{9}$/", $telefono)) {
+            $errores[] = "El teléfono debe contener 9 dígitos.";
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores[] = "El email no tiene un formato válido.";
+        }
+    }
+
+    // Si no hubo errores, continuamos con la inserción en la base de datos
+    if (empty($errores)) {
+        // Preparar la consulta SQL para insertar los datos
+        $stmt = $mysqli->prepare("INSERT INTO usuarios (nombre, apellidos, dni, telefono, fecha_nacimiento, email, contraseña) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $nombre, $apellidos, $dni, $telefono, $fecha_nacimiento, $email, $contraseña);
+
+        if ($stmt->execute()) {
+            //echo "Registro exitoso.";
+            header("Location: index.php");
+            exit(); // Detener la ejecución después de redirigir
+        } else {
+            $errores[] = "Error en el registro: " . $stmt->error;
+        }
+
+        $stmt->close();
+    }
+
+    // Si hay errores, mostrar todos los errores
+    if (!empty($errores)) {
+        foreach ($errores as $error) {
+            echo "<p style='color: red;'>$error</p>";
+        }
     }
 
     // Cerrar la conexión
-    $stmt->close();
     $mysqli->close();
-
-    // Redirigir a otra página después de guardar
-    echo "<script>window.location.href='index.php';</script>";
-    exit();
 }
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -54,91 +115,111 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Guardado de información en vari
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
     
-    <script>
-        function validarFormulario() {
-            const nombre = document.getElementById("nombre").value.trim();
-            const apellidos = document.getElementById("apellidos").value.trim();
-            const dni = document.getElementById("dni").value.trim();
-            const telefono = document.getElementById("telefono").value.trim();
-            const fechaNacimiento = document.getElementById("fecha_nacimiento").value.trim();
-            const email = document.getElementById("email").value.trim();
-            let errores = []; // Array para almacenar los mensajes de error
-
-            // Validación de nombre y apellidos (solo permite letras y espacios)
-            const nombreRegex = /^[\p{L}\s]+$/u;
-            if (!nombreRegex.test(nombre)) {
-                errores.push("El nombre solo debe contener letras.");
-            }
-            if (!nombreRegex.test(apellidos)) {
-                errores.push("Los apellidos solo deben contener letras.");
-            }
-
-            // Validación de DNI (Formato 11111111-Z)
-            const dniRegex = /^[0-9]{8}-[A-Z]$/; // Formato de DNI (8 dígitos seguidos de un guion y una letra)
-            const letrasDNI = "TRWAGMYFPDXBNJZSQVHLCKE"; // Letras válidas según el número de DNI
-            if (!dniRegex.test(dni)) {
-                errores.push("El DNI debe tener el formato 11111111-Z.");
-            } else {
-                const numeroDNI = parseInt(dni.substr(0, 8), 10); // Extraer el número de los primeros 8 caracteres del DNI
-                const letraDNI = dni.substr(-1); // Extraer la letra del último carácter
-                if (letrasDNI[numeroDNI % 23] !== letraDNI) {
-                    errores.push("La letra del DNI no corresponde con el número.");
-                }
-            }
-
-            // Validación de teléfono (solo 9 dígitos)
-            const telefonoRegex = /^[0-9]{9}$/;
-            if (!telefonoRegex.test(telefono)) {
-                errores.push("El teléfono debe contener 9 dígitos.");
-            }
-
-            // Validación de fecha de nacimiento (formato aaaa-mm-dd)
-            const fechaRegex = /^\d{4}-\d{2}-\d{2}$/;
-            if (!fechaRegex.test(fechaNacimiento)) {
-                errores.push("La fecha debe tener el formato aaaa-mm-dd.");
-            }
-
-            // Validación de email
-            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Acepta emails válidos con caracteres, números y dominios
-            if (!emailRegex.test(email)) {
-                errores.push("El formato del email no es válido.");
-            }
-
-            // Si hay errores, mostramos un mensaje y evitamos que el formulario se envíe
-            if (errores.length > 0) {
-                alert(errores.join("\n"));
-                return false; // Impedir el envío del formulario
-            }
-
-            return true; // Si todo es correcto, permitimos el envío del formulario
+    <style>
+        :root {
+            --background-color: #121212; /* Color de fondo oscuro */
+            --text-color: #e0e0e0; /* Color del texto claro */
+            --text-darkColor: #303030; /* Color del texto oscuro */
+            --primary-color: #6c63ff; /* Color primario (botones y enlaces)#bb86fc */
+            --border-color: #b8b8b8; /* Color de bordes */
         }
-    </script>
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0; /* Eliminar márgenes por defecto del body */
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center; /* Centrar el título */
+        }
+
+        form {
+            max-width: 400px; /* Limitar el ancho del formulario */
+            margin: 0 auto; /* Centrar el formulario horizontalmente */
+            padding: 35px; /* Espaciado interno para el formulario */
+            background-color: #1e1e1e; /* Fondo del formulario */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para el formulario */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            width: calc(100% - 20px); /* Ajustar ancho para evitar desbordamiento */
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #1e1e1e; /* Fondo de los inputs */
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder {
+            color: #a0a0a0; /* Color del placeholder */
+        }
+
+        button {
+            display: block; /* El botón sea un bloque */
+            width: 100%; /* Hacer que el botón ocupe el ancho completo */
+            background-color: #6c63ff;
+            color: var(--text-color);
+            padding: 6px; /* Reducir el padding para hacer el botón más pequeño */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 20px; /* Reducir el tamaño de la fuente */
+            margin-top: 15px; /* Espacio superior para el botón */
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #5851db; /* Color al pasar el ratón sobre el botón */
+        }
+    </style>
 </head>
 <body>
 
     <form method="POST" onsubmit="return validarFormulario()">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <label>Nombre: 
+            <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan"> <!-- Campo para ingresar el nombre -->
+        </label><br>
 
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos" required><br>
+        <label>Apellidos: 
+            <input type="text" id="apellidos" name="apellidos" required placeholder="Ej: Pérez"> <!-- Campo para ingresar los apellidos -->
+        </label><br>
 
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" required><br>
+        <label>DNI: 
+            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-Z"> <!-- Campo para ingresar el DNI -->
+        </label><br>
 
-        <label for="telefono">Teléfono:</label>
-        <input type="text" id="telefono" name="telefono" required><br>
+        <label>Teléfono: 
+            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678"> <!-- Campo para ingresar el numero de telefono -->
+        </label><br>
 
-        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+        <label>Fecha de Nacimiento: 
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required> <!-- Campo para ingresar la fecha de nacimiento -->
+        </label><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+        <label>Email: 
+            <input type="email" id="email" name="email" required placeholder="Ej: ejemplo@dominio.com"> <!-- Campo para ingresar el email -->
+        </label><br>
+        
+        <label>Contraseña: 
+            <input type="text" id="contraseña" name="contraseña" required placeholder=""> <!-- Campo para ingresar la contraseña -->
+        </label><br>
 
-        <label for="contraseña">Contraseña:</label>
-        <input type="password" id="contraseña" name="contraseña" required><br>
-
-        <button type="submit">Registrar</button>
+        <button id="register_submit" type="submit">Registrarse</button> <!-- Botón para enviar el formulario -->
     </form>
 
 </body>

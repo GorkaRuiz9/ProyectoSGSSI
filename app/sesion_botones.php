@@ -147,7 +147,7 @@ session_start(); // Inicia la sesión para poder acceder a las variables de sesi
         <?php else: ?>
             <!-- Si el usuario no ha iniciado sesión, se muestran los botones de "Iniciar Sesión" y "Registro" -->
             <a href="login.html" class="auth-btn">Iniciar Sesión</a>
-            <a href="register.html" class="auth-btn">Registro</a>
+            <a href="register.php" class="auth-btn">Registro</a>
         <?php endif; ?>
     </div>
 </header>

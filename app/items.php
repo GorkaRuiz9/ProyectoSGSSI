@@ -263,7 +263,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <a href="logout.php" class="auth-btn">Cerrar Sesión</a>
         <?php else: ?>
             <a href="login.html" id="login-btn" class="auth-btn">Iniciar Sesión</a>
-            <a href="register.html" id="register-btn" class="auth-btn">Registro</a>
+            <a href="register.php" id="register-btn" class="auth-btn">Registro</a>
         <?php endif; ?>
     </div>
 </header>
