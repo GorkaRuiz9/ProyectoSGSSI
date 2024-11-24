@@ -1,6 +1,6 @@
 <?php
 ob_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
 header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -202,26 +202,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label><br>
 
         <label>DNI: 
-            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-Z"> <!-- Campo para ingresar el DNI -->
+            <input type="text" id="dni" name="dni" required placeholder="Ej: 12345678-A"> <!-- Campo para ingresar el DNI -->
         </label><br>
 
         <label>Teléfono: 
-            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678"> <!-- Campo para ingresar el numero de telefono -->
+            <input type="text" id="telefono" name="telefono" required placeholder="Ej: 612345678"> <!-- Campo para ingresar el teléfono -->
         </label><br>
 
-        <label>Fecha de Nacimiento: 
+        <label>Fecha de nacimiento: 
             <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required> <!-- Campo para ingresar la fecha de nacimiento -->
         </label><br>
 
         <label>Email: 
             <input type="email" id="email" name="email" required placeholder="Ej: ejemplo@dominio.com"> <!-- Campo para ingresar el email -->
         </label><br>
-        
+
         <label>Contraseña: 
-            <input type="text" id="contraseña" name="contraseña" required placeholder=""> <!-- Campo para ingresar la contraseña -->
+            <input type="password" id="contraseña" name="contraseña" required> <!-- Campo para ingresar la contraseña -->
         </label><br>
 
-        <button id="register_submit" type="submit">Registrarse</button> <!-- Botón para enviar el formulario -->
+        <button type="submit">Registrar</button> <!-- Botón para enviar el formulario -->
     </form>
 
 </body>

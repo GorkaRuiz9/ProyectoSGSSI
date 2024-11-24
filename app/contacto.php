@@ -1,8 +1,8 @@
 <?php
 session_start();
 ob_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
-header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
+header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validación simple del formulario
     $nombre = htmlspecialchars($_POST['nombre']);
@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - Concesionario Manolín</title>
     <style>
-        /* Carga de fuentes locales */
         @font-face {
             font-family: 'Roboto';
             src: url('fonts/Roboto-Regular.ttf') format('truetype'),
@@ -40,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-weight: bold;
         }
 
-        /* Estilos globales */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -49,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #fff;
         }
 
-        /* Estilos del header */
         header {
             display: flex;
             justify-content: space-between;
@@ -86,21 +83,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #6c63ff;
         }
 
-        /* Estilo del botón de registro */
-        .register-btn {
-            background-color: #6c63ff;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .register-btn:hover {
-            background-color: #5851db;
-        }
-
-        /* Estilos del main */
         main {
             text-align: center;
             padding: 50px;
@@ -116,26 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin-bottom: 20px;
         }
 
-        .car-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-        }
-
-        /* Estilos del footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: #fff;
-        }
-
-        footer p:hover {
-            color: #6c63ff;
-        }
-
-        /* Estilos para la página de contacto */
         .contact-form {
             display: flex;
             justify-content: center;
@@ -147,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #3c3c3c;
             padding: 30px;
             border-radius: 10px;
-            width: 400px; /* Asegura que el cuadro sea de un tamaño adecuado */
+            width: 400px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -174,6 +136,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .contact-form button:hover {
             background-color: #5851db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        footer p:hover {
+            color: #6c63ff;
         }
     </style>
 </head>

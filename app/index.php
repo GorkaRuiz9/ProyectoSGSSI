@@ -1,8 +1,8 @@
 <?php
 session_start(); // Iniciar sesión para gestionar la información del usuario.
 ob_start();
-header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
-header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad 
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; form-action 'self';");
+header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad 
 ?>
 
 <!DOCTYPE html>
@@ -197,99 +197,85 @@ header("X-Content-Type-Options: nosniff");// Agregar el encabezado de seguridad
         /* NUEVOS ESTILOS PARA LA TABLA DE CARACTERÍSTICAS */
         #caracteristicas-container {
             display: flex;
-            justify-content: center; /* Centra el contenedor horizontalmente */
-            align-items: center; /* Centra el contenedor verticalmente */
-            min-height: 50vh; /* Altura mínima para centrar verticalmente */
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
         }
 
-        /* Estilos de la tabla */
         table {
             border-collapse: collapse;
             width: 50%;
-            background-color: #fff; /* Fondo blanco */
-            color: #333; /* Texto oscuro */
-            margin-top: 20px; /* Espacio en la parte superior */
+            background-color: #fff;
+            color: #333;
+            margin-top: 20px;
         }
 
         th, td {
             padding: 10px;
-            text-align: left; /* Alineación de texto a la izquierda */
-            border-bottom: 1px solid #ddd; /* Línea inferior de las celdas */
-            transition: background-color 0.3s ease; /* Efecto de transición para el fondo */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
         }
 
         th {
-            background-color: #6c63ff; /* Color de fondo del encabezado */
-            color: white; /* Color del texto en el encabezado */
-            text-align: center; /* Alineación del texto en el encabezado */
+            background-color: #6c63ff;
+            color: white;
+            text-align: center;
         }
 
-        /* Desactivar efecto al pasar el mouse sobre las celdas */
         td:hover {
-            background-color: transparent; /* No cambiar color al pasar el mouse */
-            cursor: default; /* Cambia el cursor a default */
+            background-color: transparent;
+            cursor: default;
         }
 
         .auth-buttons {
-            display: flex; /* Utiliza flexbox para organizar los botones de autenticación */
-            gap: 10px; /* Espacio entre los botones */
+            display: flex;
+            gap: 10px;
         }
 
         .auth-btn {
-            background-color: #6c63ff; /* Color de fondo */
-            color: #fff; /* Color del texto */
-            padding: 10px 20px; /* Espaciado */
-            border-radius: 5px; /* Bordes redondeados */
-            text-decoration: none; /* Sin subrayado */
-            font-weight: bold; /* Negrita */
+            background-color: #6c63ff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         .auth-btn:hover {
-            background-color: #5851db; /* Color al pasar el ratón por encima */
+            background-color: #5851db;
         }
     </style>
 </head>
 <body>
-
 <header>
-    <div class="logo">Concesionario Manolín</div> <!-- Logo del concesionario -->
+    <div class="logo">Concesionario Manolín</div>
     <nav>
         <ul>
-            <li><a href="index.php">Inicio</a></li> <!-- Enlace a la página de inicio -->
-            <li><a href="quienes-somos.php">Quiénes Somos</a></li> <!-- Enlace a la página de información -->
-            <li><a href="items.php">Listado de Coches</a></li> <!-- Enlace al listado de coches -->
-            <li><a href="contacto.php">Contacto</a></li> <!-- Enlace a la página de contacto -->
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="quienes-somos.php">Quiénes Somos</a></li>
+            <li><a href="items.php">Listado de Coches</a></li>
+            <li><a href="contacto.php">Contacto</a></li>
         </ul>
     </nav>
-
     <div class="auth-buttons">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
-            <!-- Si el usuario está autenticado, mostrar enlaces a perfil y cerrar sesión -->
             <a href="show_user.php" id="profile-btn" class="auth-btn">Perfil</a>
             <a href="logout.php" class="auth-btn">Cerrar Sesión</a>
         <?php else: ?>
-            <!-- Si el usuario no está autenticado, mostrar enlaces para iniciar sesión y registrarse -->
             <a href="login.html" id="login-btn" class="auth-btn">Iniciar Sesión</a>
             <a href="register.php" id="register-btn" class="auth-btn">Registro</a>
         <?php endif; ?>
     </div>
 </header>
-
 <main>
-    <h1>Bienvenidos a Concesionario Manolín</h1> <!-- Título principal de la página -->
-    <p>Descubre los mejores vehículos al mejor precio. Encuentra tu coche ideal con nosotros.</p> <!-- Descripción del concesionario -->
-    <img src="foto1.jpeg" alt="Imagen de coche" class="car-image"> <!-- Imagen representativa de los coches -->
+    <h1>Bienvenidos a Concesionario Manolín</h1>
+    <p>Descubre los mejores vehículos al mejor precio. Encuentra tu coche ideal con nosotros.</p>
+    <img src="foto1.jpeg" alt="Imagen de coche" class="car-image">
 </main>
-
 <footer>
-    <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p> <!-- Información de derechos reservados -->
+    <p>&copy; 2024 Concesionario Manolín - Todos los derechos reservados.</p>
 </footer>
-
-<?php
-// Iniciamos la sesión de PHP para mantener el estado del usuario.
-#header_remove('X-Powered-By'); // Opcional: Remover encabezados que indican que PHP está en uso.
-?>
-
 </body>
 </html>
 
