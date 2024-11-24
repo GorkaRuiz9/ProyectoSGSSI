@@ -2,6 +2,10 @@
 session_start(); // Iniciar sesión
 header("X-Content-Type-Options: nosniff"); // Agregar el encabezado de seguridad 
 
+// Habilitar los reportes de errores para PHP
+//ini_set('display_errors', 1);  // Mostrar errores en pantalla para depuración
+//error_reporting(E_ALL);         // Reportar todos los errores
+
 // Inicializa la sesión de inicio de sesión
 if (!isset($_SESSION['loggedin'])) {
     $_SESSION['loggedin'] = false; // Inicializa como false si no está definido
@@ -26,10 +30,15 @@ if ($conn->connect_error) {
 
 // Función para escribir en el log
 function writeLog($message) {
-    $logFile = "login.log"; // Ruta relativa a la carpeta del archivo PHP
+    $logFile = "log.txt"; // Ruta absoluta al archivo de log
     $timestamp = date("Y-m-d H:i:s");
     $logMessage = "[$timestamp] $message" . PHP_EOL;
-    file_put_contents($logFile, $logMessage, FILE_APPEND);
+
+    // Verifica si se puede escribir en el archivo de log
+    if (file_put_contents($logFile, $logMessage, FILE_APPEND) === false) {
+        // Si no se puede escribir, mostrar un mensaje de error
+        error_log("No se pudo escribir en el archivo de log: $message");
+    }
 }
 
 // Verifica si se envió el formulario
@@ -47,7 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Depurar posibles errores en la consulta
     $stmt = $conn->prepare("SELECT * FROM usuarios WHERE (email = ? OR nombre = ?) AND contraseña = ?");
     if (!$stmt) {
-        die("Error al preparar la consulta: " . $conn->error); // Muestra el error si `prepare()` falla
+        writeLog("Error al preparar la consulta: " . $conn->error); // Escribir el error en el log
+        die("Error al preparar la consulta: " . $conn->error);
     }
 
     $stmt->bind_param("sss", $user, $user, $pass); // Tipos: s (string)
